@@ -6,6 +6,7 @@ export interface ElectricityMeter {
   zone: string
   type: string
   category: string
+  facilityType: string
   name: string
   unitNumber: string
   accountNo: string
@@ -30,6 +31,19 @@ function calculateTotals(consumption: ElectricityMeter['consumption']) {
   }
 }
 
+// Get facility type from name
+function getFacilityType(name: string): string {
+  if (name.includes('Pumping Station')) return 'Pumping Stations'
+  if (name.includes('Lifting Station')) return 'Lifting Stations'
+  if (name.includes('Beachwell')) return 'Beach Well'
+  if (name.includes('Irrigation Tank')) return 'Irrigation Tanks'
+  if (name.includes('Actuator DB')) return 'MC Actuator DB'
+  if (name.includes('Street Light FP')) return 'MC Street Light FP'
+  if (name.includes('CIF')) return 'CIF'
+  if (name.includes('Common Meter D') || name.includes('Common D')) return 'Common D Building'
+  return 'Other'
+}
+
 // Categorize meters
 function getCategory(zone: string, name: string): string {
   if (zone === 'Infrastructure') return 'Infrastructure'
@@ -41,7 +55,7 @@ function getCategory(zone: string, name: string): string {
   return 'Other'
 }
 
-const rawData: Omit<ElectricityMeter, 'totalConsumption' | 'totalCost' | 'category'>[] = [
+const rawData: Omit<ElectricityMeter, 'totalConsumption' | 'totalCost' | 'category' | 'facilityType'>[] = [
   // Infrastructure - Pumping Stations
   { id: 1, zone: 'Infrastructure', type: 'MC', name: 'MC Pumping Station 01', unitNumber: 'MC', accountNo: 'R52330', 
     consumption: { 'November-24': 1629, 'December-24': 1640, 'January-25': 1903, 'February-25': 2095, 'March-25': 3032, 'April-25': 3940 }},
@@ -141,10 +155,12 @@ const rawData: Omit<ElectricityMeter, 'totalConsumption' | 'totalCost' | 'catego
 export const electricityData: ElectricityMeter[] = rawData.map(meter => {
   const { totalConsumption, totalCost } = calculateTotals(meter.consumption)
   const category = getCategory(meter.zone, meter.name)
+  const facilityType = getFacilityType(meter.name)
   
   return {
     ...meter,
     category,
+    facilityType,
     totalConsumption,
     totalCost
   }
@@ -166,5 +182,16 @@ export const getCategoryTotals = () => {
     category,
     total: electricityData.filter(m => m.category === category).reduce((sum, m) => sum + m.totalConsumption, 0),
     cost: electricityData.filter(m => m.category === category).reduce((sum, m) => sum + m.totalCost, 0)
+  }))
+}
+
+// Get facility type totals
+export const getFacilityTypeTotals = () => {
+  const facilityTypes = [...new Set(electricityData.map(m => m.facilityType))]
+  return facilityTypes.map(facilityType => ({
+    facilityType,
+    total: electricityData.filter(m => m.facilityType === facilityType).reduce((sum, m) => sum + m.totalConsumption, 0),
+    cost: electricityData.filter(m => m.facilityType === facilityType).reduce((sum, m) => sum + m.totalCost, 0),
+    count: electricityData.filter(m => m.facilityType === facilityType).length
   }))
 }
