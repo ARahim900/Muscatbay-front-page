@@ -186,27 +186,29 @@ const completeWaterData = {
 };
 
 // Enhanced Group Details Section Component
-export const EnhancedGroupDetailsSection = ({ activeMonthFilter, activeYearFilter, activeZoneFilter }) => {
+export const EnhancedGroupDetailsSection = ({ activeMonthFilter = 'Apr-25', activeYearFilter = '2025', activeZoneFilter = 'All Zones' }) => {
   const [selectedZones, setSelectedZones] = useState(['All Zones']);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Get current month data
+  // Get current month data with proper null checks
   const getCurrentMonthData = () => {
+    const monthName = activeMonthFilter ? activeMonthFilter.split('-')[0] : 'Apr';
+    
     if (selectedZones.includes('All Zones')) {
       // Aggregate all zones data
       let totalBulk = 0;
       let totalIndividual = 0;
       
       Object.values(completeWaterData).forEach(zone => {
-        const currentData = zone.currentYearData.find(d => d.month === activeMonthFilter.split('-')[0]);
+        const currentData = zone.currentYearData.find(d => d.month === monthName);
         if (currentData) {
-          totalBulk += currentData.bulk;
-          totalIndividual += currentData.individual;
+          totalBulk += currentData.bulk || 0;
+          totalIndividual += currentData.individual || 0;
         }
       });
       
       const totalLoss = totalBulk - totalIndividual;
-      const lossRate = totalBulk > 0 ? ((totalLoss / totalBulk) * 100).toFixed(1) : 0;
+      const lossRate = totalBulk > 0 ? ((totalLoss / totalBulk) * 100).toFixed(1) : '0';
       
       return {
         bulk: totalBulk,
@@ -222,16 +224,16 @@ export const EnhancedGroupDetailsSection = ({ activeMonthFilter, activeYearFilte
       selectedZones.forEach(zoneCode => {
         const zone = completeWaterData[zoneCode];
         if (zone) {
-          const currentData = zone.currentYearData.find(d => d.month === activeMonthFilter.split('-')[0]);
+          const currentData = zone.currentYearData.find(d => d.month === monthName);
           if (currentData) {
-            totalBulk += currentData.bulk;
-            totalIndividual += currentData.individual;
+            totalBulk += currentData.bulk || 0;
+            totalIndividual += currentData.individual || 0;
           }
         }
       });
       
       const totalLoss = totalBulk - totalIndividual;
-      const lossRate = totalBulk > 0 ? ((totalLoss / totalBulk) * 100).toFixed(1) : 0;
+      const lossRate = totalBulk > 0 ? ((totalLoss / totalBulk) * 100).toFixed(1) : '0';
       
       return {
         bulk: totalBulk,
@@ -256,8 +258,8 @@ export const EnhancedGroupDetailsSection = ({ activeMonthFilter, activeYearFilte
         Object.values(completeWaterData).forEach(zone => {
           const monthData = zone.currentYearData.find(d => d.month === month);
           if (monthData) {
-            totalBulk += monthData.bulk;
-            totalIndividual += monthData.individual;
+            totalBulk += monthData.bulk || 0;
+            totalIndividual += monthData.individual || 0;
           }
         });
         
@@ -283,8 +285,8 @@ export const EnhancedGroupDetailsSection = ({ activeMonthFilter, activeYearFilte
           if (zone) {
             const monthData = zone.currentYearData.find(d => d.month === month);
             if (monthData) {
-              totalBulk += monthData.bulk;
-              totalIndividual += monthData.individual;
+              totalBulk += monthData.bulk || 0;
+              totalIndividual += monthData.individual || 0;
             }
           }
         });
@@ -378,19 +380,21 @@ export const EnhancedGroupDetailsSection = ({ activeMonthFilter, activeYearFilte
 
   // Data for pie chart
   const pieData = [
-    { name: 'Individual Meters', value: currentData.individual, fill: '#10B981' },
-    { name: 'Loss', value: Math.abs(currentData.loss), fill: '#EF4444' }
+    { name: 'Individual Meters', value: currentData.individual || 0, fill: '#10B981' },
+    { name: 'Loss', value: Math.abs(currentData.loss || 0), fill: '#EF4444' }
   ];
 
   // Calculate change from last month
   const calculateChange = () => {
-    const currentMonth = activeMonthFilter.split('-')[0];
+    const currentMonth = activeMonthFilter ? activeMonthFilter.split('-')[0] : 'Apr';
     const currentIndex = trendData.findIndex(d => d.month === currentMonth);
-    if (currentIndex > 0) {
-      const current = currentData.bulk;
-      const previous = trendData[currentIndex - 1]['Bulk Meter'];
-      const change = ((current - previous) / previous * 100).toFixed(1);
-      return change;
+    if (currentIndex > 0 && trendData[currentIndex - 1]) {
+      const current = currentData.bulk || 0;
+      const previous = trendData[currentIndex - 1]['Bulk Meter'] || 0;
+      if (previous > 0) {
+        const change = ((current - previous) / previous * 100).toFixed(1);
+        return change;
+      }
     }
     return '0.0';
   };
@@ -448,7 +452,7 @@ export const EnhancedGroupDetailsSection = ({ activeMonthFilter, activeYearFilte
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div>
             <p className="text-sm text-gray-600 mb-1">Bulk Meter Reading</p>
-            <p className="text-3xl font-bold text-gray-800">{currentData.bulk.toLocaleString()} m³</p>
+            <p className="text-3xl font-bold text-gray-800">{(currentData.bulk || 0).toLocaleString()} m³</p>
             <p className="text-sm mt-1 flex items-center">
               {Number(calculateChange()) > 0 ? (
                 <>
@@ -468,7 +472,7 @@ export const EnhancedGroupDetailsSection = ({ activeMonthFilter, activeYearFilte
 
           <div>
             <p className="text-sm text-gray-600 mb-1">Individual Meters Total</p>
-            <p className="text-3xl font-bold text-gray-800">{currentData.individual.toLocaleString()} m³</p>
+            <p className="text-3xl font-bold text-gray-800">{(currentData.individual || 0).toLocaleString()} m³</p>
             <p className="text-sm mt-1 flex items-center">
               <TrendingUp className="w-4 h-4 text-green-500 mr-1" />
               <span className="text-green-500">4.8% from last month</span>
@@ -477,7 +481,7 @@ export const EnhancedGroupDetailsSection = ({ activeMonthFilter, activeYearFilte
 
           <div>
             <p className="text-sm text-gray-600 mb-1">Loss Rate</p>
-            <p className="text-3xl font-bold text-gray-800">{currentData.lossRate}%</p>
+            <p className="text-3xl font-bold text-gray-800">{currentData.lossRate || '0'}%</p>
             <p className="text-sm mt-1 text-gray-500">No change from last month</p>
           </div>
         </div>
@@ -554,7 +558,7 @@ export const EnhancedGroupDetailsSection = ({ activeMonthFilter, activeYearFilte
                     <Cell key={`cell-${index}`} fill={entry.fill} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(value) => `${value.toLocaleString()} m³`} />
+                <Tooltip formatter={(value) => `${(value || 0).toLocaleString()} m³`} />
                 <Legend />
               </PieChart>
             </ResponsiveContainer>
@@ -598,27 +602,27 @@ export const EnhancedGroupDetailsSection = ({ activeMonthFilter, activeYearFilte
                 {metersData.map((meter, index) => (
                   <tr key={index} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {meter.id}
+                      {meter.id || 'N/A'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {meter.location}
+                      {meter.location || 'N/A'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {meter.currentReading.toLocaleString()} m³
+                      {(meter.currentReading || 0).toLocaleString()} m³
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {meter.previousReading.toLocaleString()} m³
+                      {(meter.previousReading || 0).toLocaleString()} m³
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {meter.consumption.toLocaleString()} m³
+                      {(meter.consumption || 0).toLocaleString()} m³
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                        {meter.status}
+                        {meter.status || 'Normal'}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {meter.lastInspection}
+                      {meter.lastInspection || 'N/A'}
                     </td>
                   </tr>
                 ))}
@@ -667,13 +671,13 @@ export const EnhancedGroupDetailsSection = ({ activeMonthFilter, activeYearFilte
                 {customerMeters.map((customer, index) => (
                   <tr key={index} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {customer.accountId}
+                      {customer.accountId || 'N/A'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {customer.customer}
+                      {customer.customer || 'N/A'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {customer.zone}
+                      {customer.zone || 'N/A'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
@@ -681,16 +685,16 @@ export const EnhancedGroupDetailsSection = ({ activeMonthFilter, activeYearFilte
                           <div className="w-full bg-gray-200 rounded-full h-2">
                             <div
                               className={`h-2 rounded-full ${
-                                customer.consumption > 40 ? 'bg-red-500' :
-                                customer.consumption > 20 ? 'bg-yellow-500' :
-                                customer.consumption > 0 ? 'bg-green-500' : 'bg-gray-300'
+                                (customer.consumption || 0) > 40 ? 'bg-red-500' :
+                                (customer.consumption || 0) > 20 ? 'bg-yellow-500' :
+                                (customer.consumption || 0) > 0 ? 'bg-green-500' : 'bg-gray-300'
                               }`}
-                              style={{ width: `${Math.min(100, (customer.consumption / 50) * 100)}%` }}
+                              style={{ width: `${Math.min(100, ((customer.consumption || 0) / 50) * 100)}%` }}
                             />
                           </div>
                         </div>
                         <span className="text-sm font-medium text-gray-900 w-12 text-right">
-                          {customer.consumption}
+                          {customer.consumption || 0}
                         </span>
                       </div>
                     </td>
