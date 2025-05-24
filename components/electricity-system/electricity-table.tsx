@@ -48,33 +48,54 @@ export default function ElectricityTable({ meters }: ElectricityTableProps) {
     return <Badge variant="outline" className="text-gray-500">Minimal</Badge>
   }
 
+  // Get facility type badge color
+  const getFacilityTypeBadge = (facilityType: string) => {
+    const colors: Record<string, string> = {
+      'Pumping Stations': 'bg-red-100 text-red-700',
+      'Lifting Stations': 'bg-orange-100 text-orange-700',
+      'Beach Well': 'bg-blue-100 text-blue-700',
+      'Irrigation Tanks': 'bg-cyan-100 text-cyan-700',
+      'CIF': 'bg-green-100 text-green-700',
+      'MC Street Light FP': 'bg-purple-100 text-purple-700',
+      'Common D Building': 'bg-pink-100 text-pink-700',
+      'MC Actuator DB': 'bg-violet-100 text-violet-700',
+      'Other': 'bg-gray-100 text-gray-700'
+    }
+    return (
+      <Badge variant="outline" className={colors[facilityType] || colors['Other']}>
+        {facilityType}
+      </Badge>
+    )
+  }
+
   return (
     <div>
-      <div className="rounded-md border">
+      <div className="rounded-md border overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Unit</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead>Account No.</TableHead>
-              <TableHead className="text-right">Nov-24</TableHead>
-              <TableHead className="text-right">Dec-24</TableHead>
-              <TableHead className="text-right">Jan-25</TableHead>
-              <TableHead className="text-right">Feb-25</TableHead>
-              <TableHead className="text-right">Mar-25</TableHead>
-              <TableHead className="text-right">Apr-25</TableHead>
-              <TableHead className="text-right">Total (kWh)</TableHead>
-              <TableHead className="text-right">Cost (OMR)</TableHead>
-              <TableHead>Level</TableHead>
-              <TableHead>Trend</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              <TableHead className="min-w-[80px]">Unit</TableHead>
+              <TableHead className="min-w-[200px]">Name</TableHead>
+              <TableHead className="min-w-[140px]">Facility Type</TableHead>
+              <TableHead className="min-w-[120px]">Category</TableHead>
+              <TableHead className="min-w-[100px]">Account No.</TableHead>
+              <TableHead className="text-right min-w-[80px]">Nov-24</TableHead>
+              <TableHead className="text-right min-w-[80px]">Dec-24</TableHead>
+              <TableHead className="text-right min-w-[80px]">Jan-25</TableHead>
+              <TableHead className="text-right min-w-[80px]">Feb-25</TableHead>
+              <TableHead className="text-right min-w-[80px]">Mar-25</TableHead>
+              <TableHead className="text-right min-w-[80px]">Apr-25</TableHead>
+              <TableHead className="text-right min-w-[100px]">Total (kWh)</TableHead>
+              <TableHead className="text-right min-w-[90px]">Cost (OMR)</TableHead>
+              <TableHead className="min-w-[100px]">Level</TableHead>
+              <TableHead className="min-w-[60px]">Trend</TableHead>
+              <TableHead className="text-right min-w-[60px]">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {currentMeters.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={15} className="text-center py-8 text-muted-foreground">
+                <TableCell colSpan={16} className="text-center py-8 text-muted-foreground">
                   No meters found matching your criteria
                 </TableCell>
               </TableRow>
@@ -82,8 +103,15 @@ export default function ElectricityTable({ meters }: ElectricityTableProps) {
               currentMeters.map((meter) => (
                 <TableRow key={meter.id}>
                   <TableCell className="font-medium">{meter.unitNumber}</TableCell>
-                  <TableCell>{meter.name}</TableCell>
-                  <TableCell>{meter.category}</TableCell>
+                  <TableCell>
+                    <div className="max-w-[200px] truncate" title={meter.name}>
+                      {meter.name}
+                    </div>
+                  </TableCell>
+                  <TableCell>{getFacilityTypeBadge(meter.facilityType)}</TableCell>
+                  <TableCell>
+                    <Badge variant="secondary">{meter.category}</Badge>
+                  </TableCell>
                   <TableCell>{meter.accountNo}</TableCell>
                   <TableCell className="text-right">{meter.consumption['November-24'].toLocaleString()}</TableCell>
                   <TableCell className="text-right">{meter.consumption['December-24'].toLocaleString()}</TableCell>
