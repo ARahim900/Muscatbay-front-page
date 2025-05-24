@@ -66,10 +66,10 @@ The Water Management System is a comprehensive analytics dashboard for monitorin
 ## Technical Implementation
 
 ### Components Structure
-```
+\`\`\`
 components/water-system/
 └── water-analysis-dashboard.tsx
-```
+\`\`\`
 
 ### Key Technologies
 - **React**: Component-based UI framework
@@ -89,12 +89,12 @@ The system uses various chart types:
 ## Usage
 
 ### Importing the Component
-```typescript
+\`\`\`typescript
 import WaterAnalysisDashboard from '@/components/water-system/water-analysis-dashboard';
-```
+\`\`\`
 
 ### Basic Implementation
-```tsx
+\`\`\`tsx
 function App() {
   return (
     <div>
@@ -102,7 +102,7 @@ function App() {
     </div>
   );
 }
-```
+\`\`\`
 
 ## Filter Options
 

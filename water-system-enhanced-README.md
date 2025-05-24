@@ -53,11 +53,11 @@ The Water System page has been significantly enhanced with an advanced Group Det
 ## Technical Implementation
 
 ### Components Structure
-```
+\`\`\`
 components/water-system/
 ├── water-analysis-dashboard.tsx    # Main dashboard component
 └── enhanced-group-details.tsx      # Enhanced Group Details section
-```
+\`\`\`
 
 ### Key Technologies Used
 - **React**: Component-based architecture
@@ -67,7 +67,7 @@ components/water-system/
 
 ### Data Structure
 The water data is organized by zones with monthly consumption data:
-```typescript
+\`\`\`typescript
 {
   'FM': {
     name: 'Zone 01 (FM)',
@@ -83,7 +83,7 @@ The water data is organized by zones with monthly consumption data:
   },
   // ... other zones
 }
-```
+\`\`\`
 
 ## Usage Guide
 
