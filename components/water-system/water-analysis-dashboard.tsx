@@ -8,9 +8,10 @@ import {
   ArrowUpRight, ArrowDownRight, BarChart3,
   Calendar, Filter, ArrowRightLeft,
   RefreshCw, Database, Settings, AlertTriangle,
-  Droplet, CircleOff, ArrowLeft
+  Droplet, CircleOff, ArrowLeft, MapPin
 } from 'lucide-react';
 import { EnhancedGroupDetailsSection } from './enhanced-group-details';
+import ZoneDetails from './zone-details';
 import Link from 'next/link';
 
 // Main App Component
@@ -20,6 +21,33 @@ const WaterAnalysisDashboard = () => {
   const [activeYearFilter, setActiveYearFilter] = useState('2025');
   const [activeZoneFilter, setActiveZoneFilter] = useState('All Zones');
   const [dataLoaded, setDataLoaded] = useState(false);
+
+  // Sample meter data for zone details
+  const meterData = [
+    // L1 Main Supply
+    { 'Meter Label': 'L1 Main Supply', pro: '', Level: 'L1', Zone: 'Main', Type: 'Bulk', 'Parent Meter': '', 'Jan-24': 32803, 'Feb-24': 27996, 'Mar-24': 23860, 'Apr-24': 31869, 'May-24': 30737, 'Jun-24': 41953, 'Jul-24': 35166, 'Aug-24': 35420, 'Sep-24': 41341, 'Oct-24': 31519, 'Nov-24': 35290, 'Dec-24': 36733, 'Jan-25': 32580, 'Feb-25': 44043, 'Mar-25': 34915, 'Apr-25': 46039 },
+    
+    // L2 Zone Bulk Meters
+    { 'Meter Label': 'Zone FM (01) Bulk', pro: '', Level: 'L2', Zone: 'FM', Type: 'Bulk', 'Parent Meter': 'L1 Main Supply', 'Jan-24': 1595, 'Feb-24': 1283, 'Mar-24': 1255, 'Apr-24': 1383, 'May-24': 1411, 'Jun-24': 2078, 'Jul-24': 2601, 'Aug-24': 1638, 'Sep-24': 1550, 'Oct-24': 2098, 'Nov-24': 1808, 'Dec-24': 1946, 'Jan-25': 2008, 'Feb-25': 1740, 'Mar-25': 1880, 'Apr-25': 1880 },
+    { 'Meter Label': 'Zone 03(A) Bulk', pro: '', Level: 'L2', Zone: '03(A)', Type: 'Bulk', 'Parent Meter': 'L1 Main Supply', 'Jan-24': 1234, 'Feb-24': 1099, 'Mar-24': 1297, 'Apr-24': 1892, 'May-24': 2254, 'Jun-24': 2227, 'Jul-24': 3313, 'Aug-24': 3172, 'Sep-24': 2698, 'Oct-24': 3715, 'Nov-24': 3501, 'Dec-24': 3796, 'Jan-25': 4235, 'Feb-25': 4273, 'Mar-25': 3591, 'Apr-25': 4041 },
+    { 'Meter Label': 'Zone 03(B) Bulk', pro: '', Level: 'L2', Zone: '03(B)', Type: 'Bulk', 'Parent Meter': 'L1 Main Supply', 'Jan-24': 2653, 'Feb-24': 2169, 'Mar-24': 2315, 'Apr-24': 2381, 'May-24': 2634, 'Jun-24': 2932, 'Jul-24': 3369, 'Aug-24': 3458, 'Sep-24': 3742, 'Oct-24': 2906, 'Nov-24': 2695, 'Dec-24': 3583, 'Jan-25': 3256, 'Feb-25': 2962, 'Mar-25': 3331, 'Apr-25': 2157 },
+    { 'Meter Label': 'Zone 05 Bulk', pro: '', Level: 'L2', Zone: '05', Type: 'Bulk', 'Parent Meter': 'L1 Main Supply', 'Jan-24': 4286, 'Feb-24': 3897, 'Mar-24': 4127, 'Apr-24': 4911, 'May-24': 2639, 'Jun-24': 4992, 'Jul-24': 5305, 'Aug-24': 4039, 'Sep-24': 2736, 'Oct-24': 3383, 'Nov-24': 1438, 'Dec-24': 3788, 'Jan-25': 4267, 'Feb-25': 4231, 'Mar-25': 3862, 'Apr-25': 3737 },
+    { 'Meter Label': 'Zone 08 Bulk', pro: '', Level: 'L2', Zone: '08', Type: 'Bulk', 'Parent Meter': 'L1 Main Supply', 'Jan-24': 2170, 'Feb-24': 1825, 'Mar-24': 2021, 'Apr-24': 2753, 'May-24': 2722, 'Jun-24': 3193, 'Jul-24': 3639, 'Aug-24': 3957, 'Sep-24': 3947, 'Oct-24': 4296, 'Nov-24': 3569, 'Dec-24': 3018, 'Jan-25': 1547, 'Feb-25': 1498, 'Mar-25': 2605, 'Apr-25': 3203 },
+    
+    // Sample L3 Individual Meters
+    { 'Meter Label': 'FM-001', pro: 'ACC001', Level: 'L3', Zone: 'FM', Type: 'Residential_Villa', 'Parent Meter': 'Zone FM (01) Bulk', 'Jan-24': 156, 'Feb-24': 145, 'Mar-24': 132, 'Apr-24': 142, 'May-24': 148, 'Jun-24': 165, 'Jul-24': 178, 'Aug-24': 189, 'Sep-24': 167, 'Oct-24': 172, 'Nov-24': 163, 'Dec-24': 170, 'Jan-25': 155, 'Feb-25': 160, 'Mar-25': 168, 'Apr-25': 175 },
+    { 'Meter Label': 'FM-002', pro: 'ACC002', Level: 'L3', Zone: 'FM', Type: 'Retail', 'Parent Meter': 'Zone FM (01) Bulk', 'Jan-24': 450, 'Feb-24': 390, 'Mar-24': 380, 'Apr-24': 410, 'May-24': 420, 'Jun-24': 380, 'Jul-24': 390, 'Aug-24': 420, 'Sep-24': 410, 'Oct-24': 430, 'Nov-24': 440, 'Dec-24': 480, 'Jan-25': 490, 'Feb-25': 465, 'Mar-25': 475, 'Apr-25': 485 },
+    { 'Meter Label': 'FM-003', pro: 'ACC003', Level: 'L3', Zone: 'FM', Type: 'IRR_Services', 'Parent Meter': 'Zone FM (01) Bulk', 'Jan-24': 230, 'Feb-24': 210, 'Mar-24': 198, 'Apr-24': 205, 'May-24': 215, 'Jun-24': 245, 'Jul-24': 260, 'Aug-24': 240, 'Sep-24': 225, 'Oct-24': 235, 'Nov-24': 242, 'Dec-24': 250, 'Jan-25': 240, 'Feb-25': 238, 'Mar-25': 245, 'Apr-25': 248 },
+    
+    // Sample DC Meters
+    { 'Meter Label': 'DC-FM-01', pro: 'DC001', Level: 'DC', Zone: 'FM', Type: 'DC', 'Parent Meter': 'Zone FM (01) Bulk', 'Jan-24': 80, 'Feb-24': 75, 'Mar-24': 78, 'Apr-24': 82, 'May-24': 85, 'Jun-24': 90, 'Jul-24': 95, 'Aug-24': 88, 'Sep-24': 85, 'Oct-24': 87, 'Nov-24': 90, 'Dec-24': 92, 'Jan-25': 85, 'Feb-25': 87, 'Mar-25': 89, 'Apr-25': 90 },
+    
+    // Add more sample meters for other zones...
+    { 'Meter Label': '03A-001', pro: 'ACC101', Level: 'L3', Zone: '03(A)', Type: 'Residential_Apartment', 'Parent Meter': 'Zone 03(A) Bulk', 'Jan-24': 120, 'Feb-24': 115, 'Mar-24': 118, 'Apr-24': 125, 'May-24': 130, 'Jun-24': 128, 'Jul-24': 132, 'Aug-24': 135, 'Sep-24': 130, 'Oct-24': 138, 'Nov-24': 140, 'Dec-24': 142, 'Jan-25': 135, 'Feb-25': 130, 'Mar-25': 125, 'Apr-25': 145 },
+    { 'Meter Label': '03B-001', pro: 'ACC201', Level: 'L3', Zone: '03(B)', Type: 'Retail', 'Parent Meter': 'Zone 03(B) Bulk', 'Jan-24': 320, 'Feb-24': 310, 'Mar-24': 315, 'Apr-24': 325, 'May-24': 330, 'Jun-24': 340, 'Jul-24': 335, 'Aug-24': 332, 'Sep-24': 338, 'Oct-24': 342, 'Nov-24': 340, 'Dec-24': 350, 'Jan-25': 345, 'Feb-25': 340, 'Mar-25': 348, 'Apr-25': 355 },
+    { 'Meter Label': '05-001', pro: 'ACC301', Level: 'L3', Zone: '05', Type: 'Residential_Villa', 'Parent Meter': 'Zone 05 Bulk', 'Jan-24': 280, 'Feb-24': 275, 'Mar-24': 270, 'Apr-24': 285, 'May-24': 290, 'Jun-24': 295, 'Jul-24': 300, 'Aug-24': 305, 'Sep-24': 295, 'Oct-24': 310, 'Nov-24': 308, 'Dec-24': 315, 'Jan-25': 310, 'Feb-25': 305, 'Mar-25': 312, 'Apr-25': 320 },
+    { 'Meter Label': '08-001', pro: 'ACC401', Level: 'L3', Zone: '08', Type: 'Building_Common', 'Parent Meter': 'Zone 08 Bulk', 'Jan-24': 45, 'Feb-24': 42, 'Mar-24': 40, 'Apr-24': 43, 'May-24': 44, 'Jun-24': 46, 'Jul-24': 48, 'Aug-24': 47, 'Sep-24': 45, 'Oct-24': 48, 'Nov-24': 50, 'Dec-24': 52, 'Jan-25': 50, 'Feb-25': 48, 'Mar-25': 49, 'Apr-25': 51 },
+  ];
 
   // Simulate data loading
   useEffect(() => {
@@ -43,6 +71,8 @@ const WaterAnalysisDashboard = () => {
                   activeYearFilter={activeYearFilter}
                   activeZoneFilter={activeZoneFilter}
                 />;
+      case 'zone-details':
+        return <ZoneDetails data={meterData} />;
       case 'type-details':
         return <TypeDetailsSection
                   activeMonthFilter={activeMonthFilter}
@@ -117,6 +147,12 @@ const WaterAnalysisDashboard = () => {
                   onClick={() => setActiveTab('group-details')}
                 />
                 <TabButton
+                  icon={<MapPin size={18} />}
+                  title="Zone Details"
+                  active={activeTab === 'zone-details'}
+                  onClick={() => setActiveTab('zone-details')}
+                />
+                <TabButton
                   icon={<RefreshCw size={18} />}
                   title="Type Details"
                   active={activeTab === 'type-details'}
@@ -141,44 +177,48 @@ const WaterAnalysisDashboard = () => {
               </div>
 
               {/* Month Filter */}
-              <div className="flex items-center">
-                <label className="text-sm text-gray-600 mr-2">Month:</label>
-                <select
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2"
-                  value={activeMonthFilter}
-                  onChange={(e) => setActiveMonthFilter(e.target.value)}
-                >
-                  <option value="Jan-25">Jan 2025</option>
-                  <option value="Feb-25">Feb 2025</option>
-                  <option value="Mar-25">Mar 2025</option>
-                  <option value="Apr-25">Apr 2025</option>
-                  <option value="Dec-24">Dec 2024</option>
-                  <option value="Nov-24">Nov 2024</option>
-                  <option value="Oct-24">Oct 2024</option>
-                  <option value="Sep-24">Sep 2024</option>
-                  <option value="Aug-24">Aug 2024</option>
-                  <option value="Jul-24">Jul 2024</option>
-                  <option value="Jun-24">Jun 2024</option>
-                  <option value="May-24">May 2024</option>
-                  <option value="Apr-24">Apr 2024</option>
-                  <option value="Mar-24">Mar 2024</option>
-                  <option value="Feb-24">Feb 2024</option>
-                  <option value="Jan-24">Jan 2024</option>
-                </select>
-              </div>
+              {activeTab !== 'zone-details' && (
+                <div className="flex items-center">
+                  <label className="text-sm text-gray-600 mr-2">Month:</label>
+                  <select
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2"
+                    value={activeMonthFilter}
+                    onChange={(e) => setActiveMonthFilter(e.target.value)}
+                  >
+                    <option value="Jan-25">Jan 2025</option>
+                    <option value="Feb-25">Feb 2025</option>
+                    <option value="Mar-25">Mar 2025</option>
+                    <option value="Apr-25">Apr 2025</option>
+                    <option value="Dec-24">Dec 2024</option>
+                    <option value="Nov-24">Nov 2024</option>
+                    <option value="Oct-24">Oct 2024</option>
+                    <option value="Sep-24">Sep 2024</option>
+                    <option value="Aug-24">Aug 2024</option>
+                    <option value="Jul-24">Jul 2024</option>
+                    <option value="Jun-24">Jun 2024</option>
+                    <option value="May-24">May 2024</option>
+                    <option value="Apr-24">Apr 2024</option>
+                    <option value="Mar-24">Mar 2024</option>
+                    <option value="Feb-24">Feb 2024</option>
+                    <option value="Jan-24">Jan 2024</option>
+                  </select>
+                </div>
+              )}
 
               {/* Year Filter */}
-              <div className="flex items-center">
-                <label className="text-sm text-gray-600 mr-2">Year:</label>
-                <select
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2"
-                  value={activeYearFilter}
-                  onChange={(e) => setActiveYearFilter(e.target.value)}
-                >
-                  <option value="2024">2024</option>
-                  <option value="2025">2025</option>
-                </select>
-              </div>
+              {activeTab !== 'zone-details' && (
+                <div className="flex items-center">
+                  <label className="text-sm text-gray-600 mr-2">Year:</label>
+                  <select
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2"
+                    value={activeYearFilter}
+                    onChange={(e) => setActiveYearFilter(e.target.value)}
+                  >
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                  </select>
+                </div>
+              )}
 
               {/* Zone Filter (Conditionally rendered based on activeTab) */}
               {(activeTab === 'overview' || activeTab === 'group-details' || activeTab === 'loss-details') && (
