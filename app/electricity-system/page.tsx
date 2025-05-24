@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { Search, Zap, DollarSign, TrendingUp, Building2, Filter } from 'lucide-react'
+import { Search, Zap, DollarSign, TrendingUp, Building2, Filter, CalendarDays } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -19,21 +19,52 @@ export default function ElectricitySystem() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [selectedMonth, setSelectedMonth] = useState('all')
+  const [analysisCategory, setAnalysisCategory] = useState('all')
+  const [analysisMonth, setAnalysisMonth] = useState('all')
+
+  // Available months
+  const months = [
+    { value: 'all', label: 'All Months' },
+    { value: 'November-24', label: 'November 2024' },
+    { value: 'December-24', label: 'December 2024' },
+    { value: 'January-25', label: 'January 2025' },
+    { value: 'February-25', label: 'February 2025' },
+    { value: 'March-25', label: 'March 2025' },
+    { value: 'April-25', label: 'April 2025' }
+  ]
+
+  // Available categories
+  const categories = [
+    { value: 'all', label: 'All Categories' },
+    { value: 'Infrastructure', label: 'Infrastructure' },
+    { value: 'Residential', label: 'Residential' },
+    { value: 'Commercial', label: 'Commercial' },
+    { value: 'Common Areas', label: 'Common Areas' }
+  ]
 
   // Calculate statistics
   const stats = useMemo(() => {
-    const totalConsumption = electricityData.reduce((sum, meter) => {
-      return sum + meter.totalConsumption
+    // Filter data for stats if needed
+    let filteredData = electricityData
+    if (analysisCategory !== 'all') {
+      filteredData = filteredData.filter(meter => meter.category === analysisCategory)
+    }
+
+    const totalConsumption = filteredData.reduce((sum, meter) => {
+      if (analysisMonth === 'all') {
+        return sum + meter.totalConsumption
+      }
+      return sum + meter.consumption[analysisMonth as keyof typeof meter.consumption]
     }, 0)
 
     const totalCost = totalConsumption * RATE_PER_KWH
 
     // Get current month (April-25) consumption
-    const currentMonthConsumption = electricityData.reduce((sum, meter) => {
+    const currentMonthConsumption = filteredData.reduce((sum, meter) => {
       return sum + (meter.consumption['April-25'] || 0)
     }, 0)
 
-    const previousMonthConsumption = electricityData.reduce((sum, meter) => {
+    const previousMonthConsumption = filteredData.reduce((sum, meter) => {
       return sum + (meter.consumption['March-25'] || 0)
     }, 0)
 
@@ -42,9 +73,13 @@ export default function ElectricitySystem() {
       : 0
 
     // Category breakdown
-    const categoryTotals = electricityData.reduce((acc, meter) => {
+    const categoryTotals = filteredData.reduce((acc, meter) => {
       if (!acc[meter.category]) acc[meter.category] = 0
-      acc[meter.category] += meter.totalConsumption
+      if (analysisMonth === 'all') {
+        acc[meter.category] += meter.totalConsumption
+      } else {
+        acc[meter.category] += meter.consumption[analysisMonth as keyof typeof meter.consumption]
+      }
       return acc
     }, {} as Record<string, number>)
 
@@ -53,12 +88,12 @@ export default function ElectricitySystem() {
       totalCost,
       currentMonthConsumption,
       monthlyGrowth,
-      totalMeters: electricityData.length,
+      totalMeters: filteredData.length,
       categoryTotals
     }
-  }, [])
+  }, [analysisCategory, analysisMonth])
 
-  // Filter meters
+  // Filter meters for table
   const filteredMeters = useMemo(() => {
     return electricityData.filter(meter => {
       const matchesSearch = 
@@ -94,7 +129,9 @@ export default function ElectricitySystem() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats.totalConsumption.toLocaleString()}</div>
-              <p className="text-xs text-muted-foreground">kWh (6 months)</p>
+              <p className="text-xs text-muted-foreground">
+                kWh {analysisMonth === 'all' ? '(6 months)' : `(${months.find(m => m.value === analysisMonth)?.label})`}
+              </p>
             </CardContent>
           </Card>
           
@@ -138,7 +175,9 @@ export default function ElectricitySystem() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats.totalMeters}</div>
-              <p className="text-xs text-muted-foreground">Active meters</p>
+              <p className="text-xs text-muted-foreground">
+                {analysisCategory === 'all' ? 'Active meters' : analysisCategory}
+              </p>
             </CardContent>
           </Card>
         </div>
@@ -236,11 +275,11 @@ export default function ElectricitySystem() {
                       <SelectValue placeholder="Select category" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All Categories</SelectItem>
-                      <SelectItem value="Infrastructure">Infrastructure</SelectItem>
-                      <SelectItem value="Residential">Residential</SelectItem>
-                      <SelectItem value="Commercial">Commercial</SelectItem>
-                      <SelectItem value="Common Areas">Common Areas</SelectItem>
+                      {categories.map(cat => (
+                        <SelectItem key={cat.value} value={cat.value}>
+                          {cat.label}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>
@@ -287,13 +326,54 @@ export default function ElectricitySystem() {
           <TabsContent value="analysis" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Cost Analysis</CardTitle>
-                <CardDescription>
-                  Detailed breakdown of electricity costs across all categories
-                </CardDescription>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div>
+                    <CardTitle>Cost Analysis</CardTitle>
+                    <CardDescription>
+                      Detailed breakdown of electricity costs across all categories
+                    </CardDescription>
+                  </div>
+                  <div className="flex gap-2">
+                    <Select value={analysisCategory} onValueChange={(value) => {
+                      setAnalysisCategory(value)
+                    }}>
+                      <SelectTrigger className="w-[180px]">
+                        <Filter className="h-4 w-4 mr-2" />
+                        <SelectValue placeholder="Filter by type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {categories.map(cat => (
+                          <SelectItem key={cat.value} value={cat.value}>
+                            {cat.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <Select value={analysisMonth} onValueChange={(value) => {
+                      setAnalysisMonth(value)
+                    }}>
+                      <SelectTrigger className="w-[180px]">
+                        <CalendarDays className="h-4 w-4 mr-2" />
+                        <SelectValue placeholder="Filter by month" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {months.map(month => (
+                          <SelectItem key={month.value} value={month.value}>
+                            {month.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
               </CardHeader>
               <CardContent>
-                <ConsumptionChart data={electricityData} type="cost" />
+                <ConsumptionChart 
+                  data={electricityData} 
+                  type="cost" 
+                  selectedMonth={analysisMonth}
+                  selectedType={analysisCategory}
+                />
               </CardContent>
             </Card>
           </TabsContent>
