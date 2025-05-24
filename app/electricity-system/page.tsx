@@ -13,13 +13,15 @@ import { ArrowLeft } from 'lucide-react'
 import ElectricityTable from '@/components/electricity-system/electricity-table'
 import ConsumptionChart from '@/components/electricity-system/consumption-chart'
 import CategoryBreakdown from '@/components/electricity-system/category-breakdown'
-import { electricityData, RATE_PER_KWH } from '@/data/electricity-data'
+import { electricityData, RATE_PER_KWH, getFacilityTypeTotals } from '@/data/electricity-data'
 
 export default function ElectricitySystem() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
+  const [selectedFacilityType, setSelectedFacilityType] = useState('all')
   const [selectedMonth, setSelectedMonth] = useState('all')
   const [analysisCategory, setAnalysisCategory] = useState('all')
+  const [analysisFacilityType, setAnalysisFacilityType] = useState('all')
   const [analysisMonth, setAnalysisMonth] = useState('all')
 
   // Available months
@@ -42,12 +44,29 @@ export default function ElectricitySystem() {
     { value: 'Common Areas', label: 'Common Areas' }
   ]
 
+  // Available facility types
+  const facilityTypes = [
+    { value: 'all', label: 'All Types' },
+    { value: 'Pumping Stations', label: 'Pumping Stations' },
+    { value: 'Lifting Stations', label: 'Lifting Stations' },
+    { value: 'Beach Well', label: 'Beach Well' },
+    { value: 'Irrigation Tanks', label: 'Irrigation Tanks' },
+    { value: 'CIF', label: 'CIF' },
+    { value: 'MC Street Light FP', label: 'MC Street Light FP' },
+    { value: 'Common D Building', label: 'Common D Building' },
+    { value: 'MC Actuator DB', label: 'MC Actuator DB' },
+    { value: 'Other', label: 'Other' }
+  ]
+
   // Calculate statistics
   const stats = useMemo(() => {
-    // Filter data for stats if needed
+    // Filter data for stats
     let filteredData = electricityData
     if (analysisCategory !== 'all') {
       filteredData = filteredData.filter(meter => meter.category === analysisCategory)
+    }
+    if (analysisFacilityType !== 'all') {
+      filteredData = filteredData.filter(meter => meter.facilityType === analysisFacilityType)
     }
 
     const totalConsumption = filteredData.reduce((sum, meter) => {
@@ -83,15 +102,27 @@ export default function ElectricitySystem() {
       return acc
     }, {} as Record<string, number>)
 
+    // Facility type breakdown
+    const facilityTypeTotals = filteredData.reduce((acc, meter) => {
+      if (!acc[meter.facilityType]) acc[meter.facilityType] = 0
+      if (analysisMonth === 'all') {
+        acc[meter.facilityType] += meter.totalConsumption
+      } else {
+        acc[meter.facilityType] += meter.consumption[analysisMonth as keyof typeof meter.consumption]
+      }
+      return acc
+    }, {} as Record<string, number>)
+
     return {
       totalConsumption,
       totalCost,
       currentMonthConsumption,
       monthlyGrowth,
       totalMeters: filteredData.length,
-      categoryTotals
+      categoryTotals,
+      facilityTypeTotals
     }
-  }, [analysisCategory, analysisMonth])
+  }, [analysisCategory, analysisFacilityType, analysisMonth])
 
   // Filter meters for table
   const filteredMeters = useMemo(() => {
@@ -102,10 +133,11 @@ export default function ElectricitySystem() {
         meter.unitNumber.toLowerCase().includes(searchTerm.toLowerCase())
       
       const matchesCategory = selectedCategory === 'all' || meter.category === selectedCategory
+      const matchesFacilityType = selectedFacilityType === 'all' || meter.facilityType === selectedFacilityType
       
-      return matchesSearch && matchesCategory
+      return matchesSearch && matchesCategory && matchesFacilityType
     })
-  }, [searchTerm, selectedCategory])
+  }, [searchTerm, selectedCategory, selectedFacilityType])
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -176,7 +208,8 @@ export default function ElectricitySystem() {
             <CardContent>
               <div className="text-2xl font-bold">{stats.totalMeters}</div>
               <p className="text-xs text-muted-foreground">
-                {analysisCategory === 'all' ? 'Active meters' : analysisCategory}
+                {analysisFacilityType !== 'all' ? analysisFacilityType : 
+                 analysisCategory !== 'all' ? analysisCategory : 'Active meters'}
               </p>
             </CardContent>
           </Card>
@@ -188,6 +221,7 @@ export default function ElectricitySystem() {
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="consumption">Consumption Details</TabsTrigger>
             <TabsTrigger value="categories">By Category</TabsTrigger>
+            <TabsTrigger value="facility-types">By Facility Type</TabsTrigger>
             <TabsTrigger value="analysis">Cost Analysis</TabsTrigger>
           </TabsList>
 
@@ -235,7 +269,9 @@ export default function ElectricitySystem() {
                           <Badge variant="outline">{index + 1}</Badge>
                           <div>
                             <p className="font-medium">{meter.name}</p>
-                            <p className="text-sm text-muted-foreground">{meter.category}</p>
+                            <p className="text-sm text-muted-foreground">
+                              {meter.facilityType} • {meter.category}
+                            </p>
                           </div>
                         </div>
                         <div className="text-right">
@@ -260,7 +296,7 @@ export default function ElectricitySystem() {
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                <div className="flex flex-col gap-4 mb-6">
                   <div className="relative flex-1">
                     <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input
@@ -270,18 +306,32 @@ export default function ElectricitySystem() {
                       className="pl-8"
                     />
                   </div>
-                  <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                    <SelectTrigger className="w-full sm:w-[200px]">
-                      <SelectValue placeholder="Select category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {categories.map(cat => (
-                        <SelectItem key={cat.value} value={cat.value}>
-                          {cat.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                      <SelectTrigger className="w-full sm:w-[200px]">
+                        <SelectValue placeholder="Select category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {categories.map(cat => (
+                          <SelectItem key={cat.value} value={cat.value}>
+                            {cat.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <Select value={selectedFacilityType} onValueChange={setSelectedFacilityType}>
+                      <SelectTrigger className="w-full sm:w-[200px]">
+                        <SelectValue placeholder="Select facility type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {facilityTypes.map(type => (
+                          <SelectItem key={type.value} value={type.value}>
+                            {type.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
 
                 <ElectricityTable meters={filteredMeters} />
@@ -323,6 +373,45 @@ export default function ElectricitySystem() {
             ))}
           </TabsContent>
 
+          <TabsContent value="facility-types" className="space-y-4">
+            {Object.entries(stats.facilityTypeTotals)
+              .sort(([,a], [,b]) => b - a)
+              .map(([facilityType, total]) => (
+              <Card key={facilityType}>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle>{facilityType}</CardTitle>
+                    <div className="text-right">
+                      <p className="text-lg font-semibold">{total.toLocaleString()} kWh</p>
+                      <p className="text-sm text-muted-foreground">
+                        OMR {(total * RATE_PER_KWH).toFixed(2)}
+                      </p>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    {electricityData
+                      .filter(meter => meter.facilityType === facilityType)
+                      .sort((a, b) => b.totalConsumption - a.totalConsumption)
+                      .slice(0, 5)
+                      .map(meter => (
+                        <div key={meter.id} className="flex justify-between items-center">
+                          <div>
+                            <span className="text-sm font-medium">{meter.name}</span>
+                            <span className="text-xs text-muted-foreground ml-2">({meter.category})</span>
+                          </div>
+                          <Badge variant="secondary">
+                            {meter.totalConsumption.toLocaleString()} kWh
+                          </Badge>
+                        </div>
+                      ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </TabsContent>
+
           <TabsContent value="analysis" className="space-y-4">
             <Card>
               <CardHeader>
@@ -333,18 +422,35 @@ export default function ElectricitySystem() {
                       Detailed breakdown of electricity costs across all categories
                     </CardDescription>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex flex-wrap gap-2">
                     <Select value={analysisCategory} onValueChange={(value) => {
                       setAnalysisCategory(value)
+                      if (value !== 'all') setAnalysisFacilityType('all')
                     }}>
                       <SelectTrigger className="w-[180px]">
                         <Filter className="h-4 w-4 mr-2" />
-                        <SelectValue placeholder="Filter by type" />
+                        <SelectValue placeholder="Filter by category" />
                       </SelectTrigger>
                       <SelectContent>
                         {categories.map(cat => (
                           <SelectItem key={cat.value} value={cat.value}>
                             {cat.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <Select value={analysisFacilityType} onValueChange={(value) => {
+                      setAnalysisFacilityType(value)
+                      if (value !== 'all') setAnalysisCategory('all')
+                    }}>
+                      <SelectTrigger className="w-[180px]">
+                        <Building2 className="h-4 w-4 mr-2" />
+                        <SelectValue placeholder="Filter by type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {facilityTypes.map(type => (
+                          <SelectItem key={type.value} value={type.value}>
+                            {type.label}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -372,7 +478,7 @@ export default function ElectricitySystem() {
                   data={electricityData} 
                   type="cost" 
                   selectedMonth={analysisMonth}
-                  selectedType={analysisCategory}
+                  selectedType={analysisFacilityType !== 'all' ? analysisFacilityType : analysisCategory}
                 />
               </CardContent>
             </Card>
