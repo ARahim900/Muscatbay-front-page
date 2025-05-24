@@ -8,9 +8,10 @@ import {
   ArrowUpRight, ArrowDownRight, BarChart3,
   Calendar, Filter, ArrowRightLeft,
   RefreshCw, Database, Settings, AlertTriangle,
-  Droplet, CircleOff
+  Droplet, CircleOff, ArrowLeft
 } from 'lucide-react';
 import { EnhancedGroupDetailsSection } from './enhanced-group-details';
+import Link from 'next/link';
 
 // Main App Component
 const WaterAnalysisDashboard = () => {
@@ -69,6 +70,16 @@ const WaterAnalysisDashboard = () => {
         <LoadingScreen />
       ) : (
         <>
+          {/* Back to Home Navigation */}
+          <div className="bg-white border-b border-gray-200">
+            <div className="container mx-auto px-4 py-4">
+              <Link href="/" className="flex items-center text-gray-600 hover:text-gray-900 transition-colors">
+                <ArrowLeft size={20} className="mr-2" />
+                <span className="font-medium">Back to Home</span>
+              </Link>
+            </div>
+          </div>
+
           {/* Header */}
           <header className="bg-gradient-to-r from-[#4E4456] to-[#6E5E76] text-white shadow-lg p-4">
             <div className="container mx-auto flex flex-wrap justify-between items-center">
