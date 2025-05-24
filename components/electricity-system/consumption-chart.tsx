@@ -21,26 +21,73 @@ import { ElectricityMeter, RATE_PER_KWH, getMonthlyTotals } from '@/data/electri
 interface ConsumptionChartProps {
   data: ElectricityMeter[]
   type?: 'trend' | 'comparison' | 'cost'
+  selectedMonth?: string
+  selectedType?: string
 }
 
-export default function ConsumptionChart({ data, type = 'trend' }: ConsumptionChartProps) {
+export default function ConsumptionChart({ 
+  data, 
+  type = 'trend',
+  selectedMonth = 'all',
+  selectedType = 'all' 
+}: ConsumptionChartProps) {
+  // Filter data based on selected filters
+  const filteredData = useMemo(() => {
+    let filtered = data
+
+    // Filter by type/category
+    if (selectedType !== 'all') {
+      filtered = filtered.filter(meter => meter.category === selectedType)
+    }
+
+    return filtered
+  }, [data, selectedType])
+
   // Process data based on type
   const chartData = useMemo(() => {
     if (type === 'trend') {
       // Monthly trend data
-      const monthlyTotals = getMonthlyTotals()
-      return monthlyTotals.map(({ month, total, cost }) => ({
-        month: month.split('-')[0], // Short month name
-        consumption: total,
-        cost: cost,
-        avgPerMeter: Math.round(total / data.length)
-      }))
+      const months = ['November-24', 'December-24', 'January-25', 'February-25', 'March-25', 'April-25'] as const
+      
+      if (selectedMonth !== 'all') {
+        // Show single month data by category
+        const categoryData = filteredData.reduce((acc, meter) => {
+          const category = meter.category
+          if (!acc[category]) {
+            acc[category] = {
+              category,
+              consumption: 0,
+              cost: 0,
+              count: 0
+            }
+          }
+          acc[category].consumption += meter.consumption[selectedMonth as keyof typeof meter.consumption]
+          acc[category].cost += meter.consumption[selectedMonth as keyof typeof meter.consumption] * RATE_PER_KWH
+          acc[category].count += 1
+          return acc
+        }, {} as Record<string, any>)
+
+        return Object.values(categoryData)
+      } else {
+        // Show all months trend
+        return months.map(month => {
+          const monthTotal = filteredData.reduce((sum, meter) => 
+            sum + meter.consumption[month], 0
+          )
+          return {
+            month: month.split('-')[0],
+            consumption: monthTotal,
+            cost: monthTotal * RATE_PER_KWH,
+            avgPerMeter: Math.round(monthTotal / (filteredData.length || 1))
+          }
+        })
+      }
     } else if (type === 'comparison') {
       // Category comparison
       const categories: Record<string, number[]> = {}
       const months = ['November-24', 'December-24', 'January-25', 'February-25', 'March-25', 'April-25'] as const
       
-      data.forEach(meter => {
+      filteredData.forEach(meter => {
         if (!categories[meter.category]) {
           categories[meter.category] = new Array(6).fill(0)
         }
@@ -57,18 +104,20 @@ export default function ConsumptionChart({ data, type = 'trend' }: ConsumptionCh
         return dataPoint
       })
     } else {
-      // Cost analysis
-      const topConsumers = data
+      // Cost analysis - FIXED with dual Y-axis
+      const topConsumers = filteredData
         .sort((a, b) => b.totalConsumption - a.totalConsumption)
         .slice(0, 10)
         .map(meter => ({
           name: meter.name.length > 20 ? meter.name.substring(0, 20) + '...' : meter.name,
+          fullName: meter.name,
           consumption: meter.totalConsumption,
-          cost: meter.totalCost
+          cost: meter.totalCost,
+          category: meter.category
         }))
       return topConsumers
     }
-  }, [data, type])
+  }, [filteredData, type, selectedMonth])
 
   // Custom tooltip
   const CustomTooltip = ({ active, payload, label }: any) => {
@@ -89,6 +138,27 @@ export default function ConsumptionChart({ data, type = 'trend' }: ConsumptionCh
     return null
   }
 
+  // Custom tooltip for cost analysis
+  const CostAnalysisTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      const data = payload[0]?.payload
+      return (
+        <div className="bg-white p-3 border rounded-lg shadow-lg">
+          <p className="font-semibold text-sm">{data?.fullName || label}</p>
+          <p className="text-xs text-muted-foreground mb-2">{data?.category}</p>
+          {payload.map((entry: any, index: number) => (
+            <p key={index} className="text-sm" style={{ color: entry.color }}>
+              {entry.name}: {entry.name.includes('Cost') 
+                ? `OMR ${entry.value.toFixed(2)}` 
+                : `${entry.value.toLocaleString()} kWh`}
+            </p>
+          ))}
+        </div>
+      )
+    }
+    return null
+  }
+
   // Colors for different categories
   const categoryColors = {
     Infrastructure: '#4E4456',
@@ -99,6 +169,26 @@ export default function ConsumptionChart({ data, type = 'trend' }: ConsumptionCh
   }
 
   if (type === 'trend') {
+    if (selectedMonth !== 'all') {
+      // Bar chart for single month category breakdown
+      return (
+        <div className="h-[400px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="category" />
+              <YAxis yAxisId="left" />
+              <YAxis yAxisId="right" orientation="right" />
+              <Tooltip content={<CustomTooltip />} />
+              <Legend />
+              <Bar yAxisId="left" dataKey="consumption" fill="#4E4456" name="Consumption (kWh)" />
+              <Bar yAxisId="right" dataKey="cost" fill="#10b981" name="Cost (OMR)" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      )
+    }
+
     return (
       <div className="h-[400px]">
         <ResponsiveContainer width="100%" height="100%">
@@ -156,7 +246,7 @@ export default function ConsumptionChart({ data, type = 'trend' }: ConsumptionCh
     )
   }
 
-  // Cost analysis chart
+  // Enhanced Cost analysis chart with dual Y-axis
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-4">
@@ -166,7 +256,7 @@ export default function ConsumptionChart({ data, type = 'trend' }: ConsumptionCh
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold">
-              OMR {(data.reduce((sum, m) => sum + m.totalCost, 0) / 6).toFixed(2)}
+              OMR {(filteredData.reduce((sum, m) => sum + m.totalCost, 0) / 6).toFixed(2)}
             </p>
             <p className="text-xs text-muted-foreground">Average per month</p>
           </CardContent>
@@ -177,25 +267,71 @@ export default function ConsumptionChart({ data, type = 'trend' }: ConsumptionCh
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold">
-              OMR {Math.max(...data.map(m => m.totalCost)).toFixed(2)}
+              OMR {Math.max(...(filteredData.length > 0 ? filteredData.map(m => m.totalCost) : [0])).toFixed(2)}
             </p>
             <p className="text-xs text-muted-foreground">Single meter (6 months)</p>
           </CardContent>
         </Card>
       </div>
 
-      <div className="h-[400px]">
+      <div className="h-[500px]">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={chartData} layout="horizontal">
+          <BarChart 
+            data={chartData} 
+            layout="horizontal"
+            margin={{ top: 5, right: 30, left: 150, bottom: 5 }}
+          >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis type="number" />
-            <YAxis dataKey="name" type="category" width={150} />
-            <Tooltip content={<CustomTooltip />} />
+            <YAxis dataKey="name" type="category" width={140} />
+            <Tooltip content={<CostAnalysisTooltip />} />
             <Legend />
             <Bar dataKey="consumption" fill="#4E4456" name="Consumption (kWh)" />
-            <Bar dataKey="cost" fill="#10b981" name="Cost (OMR)" />
+            <Bar dataKey="cost" fill="#10b981" name="Cost (OMR)" yAxisId="right" />
+            <YAxis yAxisId="right" orientation="right" type="number" />
           </BarChart>
         </ResponsiveContainer>
+      </div>
+
+      {/* Alternative visualization - separate charts for better visibility */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Consumption Ranking</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={chartData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" angle={-45} textAnchor="end" height={80} />
+                  <YAxis />
+                  <Tooltip formatter={(value: any) => `${value.toLocaleString()} kWh`} />
+                  <Bar dataKey="consumption" fill="#4E4456" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Cost Ranking</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={chartData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" angle={-45} textAnchor="end" height={80} />
+                  <YAxis />
+                  <Tooltip formatter={(value: any) => `OMR ${value.toFixed(2)}`} />
+                  <Bar dataKey="cost" fill="#10b981" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )
