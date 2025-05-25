@@ -1,12 +1,66 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import dynamic from 'next/dynamic'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 import { Droplets, TrendingDown, TrendingUp, AlertTriangle } from 'lucide-react'
 import { processWaterData, formatNumber, formatPercentage, MONTHS, WaterMeterData } from '@/lib/water-data-utils'
+
+// Dynamically import Recharts components to avoid SSR issues
+const ResponsiveContainer = dynamic(
+  () => import('recharts').then((mod) => mod.ResponsiveContainer),
+  { ssr: false }
+)
+const BarChart = dynamic(
+  () => import('recharts').then((mod) => mod.BarChart),
+  { ssr: false }
+)
+const Bar = dynamic(
+  () => import('recharts').then((mod) => mod.Bar),
+  { ssr: false }
+)
+const LineChart = dynamic(
+  () => import('recharts').then((mod) => mod.LineChart),
+  { ssr: false }
+)
+const Line = dynamic(
+  () => import('recharts').then((mod) => mod.Line),
+  { ssr: false }
+)
+const PieChart = dynamic(
+  () => import('recharts').then((mod) => mod.PieChart),
+  { ssr: false }
+)
+const Pie = dynamic(
+  () => import('recharts').then((mod) => mod.Pie),
+  { ssr: false }
+)
+const Cell = dynamic(
+  () => import('recharts').then((mod) => mod.Cell),
+  { ssr: false }
+)
+const XAxis = dynamic(
+  () => import('recharts').then((mod) => mod.XAxis),
+  { ssr: false }
+)
+const YAxis = dynamic(
+  () => import('recharts').then((mod) => mod.YAxis),
+  { ssr: false }
+)
+const CartesianGrid = dynamic(
+  () => import('recharts').then((mod) => mod.CartesianGrid),
+  { ssr: false }
+)
+const Tooltip = dynamic(
+  () => import('recharts').then((mod) => mod.Tooltip),
+  { ssr: false }
+)
+const Legend = dynamic(
+  () => import('recharts').then((mod) => mod.Legend),
+  { ssr: false }
+)
 
 interface WaterOverviewProps {
   waterData: WaterMeterData[];
@@ -155,15 +209,17 @@ export function WaterOverview({ waterData }: WaterOverviewProps) {
             <CardTitle>Water Flow Distribution</CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={waterFlowData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip formatter={(value) => formatNumber(Number(value))} />
-                <Bar dataKey="value" fill="#0088FE" />
-              </BarChart>
-            </ResponsiveContainer>
+            <div className="h-[300px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={waterFlowData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip formatter={(value) => formatNumber(Number(value))} />
+                  <Bar dataKey="value" fill="#0088FE" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </CardContent>
         </Card>
 
@@ -173,29 +229,31 @@ export function WaterOverview({ waterData }: WaterOverviewProps) {
             <CardTitle>System Efficiency Trend</CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={efficiencyTrendData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip formatter={(value) => `${Number(value).toFixed(1)}%`} />
-                <Legend />
-                <Line 
-                  type="monotone" 
-                  dataKey="efficiency" 
-                  stroke="#00C49F" 
-                  name="Efficiency %"
-                  strokeWidth={2}
-                />
-                <Line 
-                  type="monotone" 
-                  dataKey="lossPercentage" 
-                  stroke="#FF8042" 
-                  name="Loss %"
-                  strokeWidth={2}
-                />
-              </LineChart>
-            </ResponsiveContainer>
+            <div className="h-[300px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={efficiencyTrendData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="month" />
+                  <YAxis />
+                  <Tooltip formatter={(value) => `${Number(value).toFixed(1)}%`} />
+                  <Legend />
+                  <Line 
+                    type="monotone" 
+                    dataKey="efficiency" 
+                    stroke="#00C49F" 
+                    name="Efficiency %"
+                    strokeWidth={2}
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="lossPercentage" 
+                    stroke="#FF8042" 
+                    name="Loss %"
+                    strokeWidth={2}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           </CardContent>
         </Card>
 
@@ -205,25 +263,27 @@ export function WaterOverview({ waterData }: WaterOverviewProps) {
             <CardTitle>Zone Distribution</CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie
-                  data={zoneDistributionData}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={(entry) => `${entry.name}: ${formatNumber(entry.value)}`}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {zoneDistributionData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip formatter={(value) => formatNumber(Number(value))} />
-              </PieChart>
-            </ResponsiveContainer>
+            <div className="h-[300px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={zoneDistributionData}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={(entry) => `${entry.name}: ${formatNumber(entry.value)}`}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {zoneDistributionData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip formatter={(value) => formatNumber(Number(value))} />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
           </CardContent>
         </Card>
 
@@ -233,15 +293,17 @@ export function WaterOverview({ waterData }: WaterOverviewProps) {
             <CardTitle>Loss Percentage by Zone</CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={zoneDistributionData} layout="horizontal">
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip formatter={(value) => `${Number(value).toFixed(1)}%`} />
-                <Bar dataKey="lossPercentage" fill="#FF8042" />
-              </BarChart>
-            </ResponsiveContainer>
+            <div className="h-[300px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={zoneDistributionData} layout="horizontal">
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip formatter={(value) => `${Number(value).toFixed(1)}%`} />
+                  <Bar dataKey="lossPercentage" fill="#FF8042" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -252,18 +314,20 @@ export function WaterOverview({ waterData }: WaterOverviewProps) {
           <CardTitle>Monthly Consumption Trends</CardTitle>
         </CardHeader>
         <CardContent>
-          <ResponsiveContainer width="100%" height={400}>
-            <LineChart data={monthlyData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip formatter={(value) => formatNumber(Number(value))} />
-              <Legend />
-              <Line type="monotone" dataKey="a1" stroke="#0088FE" name="A1 (L1)" strokeWidth={2} />
-              <Line type="monotone" dataKey="a2" stroke="#00C49F" name="A2 (L2+DC)" strokeWidth={2} />
-              <Line type="monotone" dataKey="a3" stroke="#FFBB28" name="A3 (L3+DC)" strokeWidth={2} />
-            </LineChart>
-          </ResponsiveContainer>
+          <div className="h-[400px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={monthlyData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip formatter={(value) => formatNumber(Number(value))} />
+                <Legend />
+                <Line type="monotone" dataKey="a1" stroke="#0088FE" name="A1 (L1)" strokeWidth={2} />
+                <Line type="monotone" dataKey="a2" stroke="#00C49F" name="A2 (L2+DC)" strokeWidth={2} />
+                <Line type="monotone" dataKey="a3" stroke="#FFBB28" name="A3 (L3+DC)" strokeWidth={2} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </CardContent>
       </Card>
 
@@ -273,17 +337,19 @@ export function WaterOverview({ waterData }: WaterOverviewProps) {
           <CardTitle>Loss Analysis</CardTitle>
         </CardHeader>
         <CardContent>
-          <ResponsiveContainer width="100%" height={400}>
-            <BarChart data={lossAnalysisData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip formatter={(value) => formatNumber(Number(value))} />
-              <Legend />
-              <Bar dataKey="Stage 1 Loss" stackId="a" fill="#FF8042" />
-              <Bar dataKey="Stage 2 Loss" stackId="a" fill="#FFBB28" />
-            </BarChart>
-          </ResponsiveContainer>
+          <div className="h-[400px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={lossAnalysisData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip formatter={(value) => formatNumber(Number(value))} />
+                <Legend />
+                <Bar dataKey="Stage 1 Loss" stackId="a" fill="#FF8042" />
+                <Bar dataKey="Stage 2 Loss" stackId="a" fill="#FFBB28" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </CardContent>
       </Card>
     </div>
