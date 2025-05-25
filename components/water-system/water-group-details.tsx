@@ -1,43 +1,36 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import dynamic from 'next/dynamic'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Building2, Droplets, TrendingDown, Search } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { processWaterData, formatNumber, formatPercentage, MONTHS, ZONE_MAPPING, WaterMeterData } from '@/lib/water-data-utils'
+import { ChartWrapper } from './chart-wrapper'
+import dynamic from 'next/dynamic'
 
-// Dynamically import Recharts components to avoid SSR issues
-const ResponsiveContainer = dynamic(
-  () => import('recharts').then((mod) => mod.ResponsiveContainer),
-  { ssr: false }
-)
-const LineChart = dynamic(
-  () => import('recharts').then((mod) => mod.LineChart),
-  { ssr: false }
-)
-const Line = dynamic(
-  () => import('recharts').then((mod) => mod.Line),
-  { ssr: false }
-)
-const XAxis = dynamic(
-  () => import('recharts').then((mod) => mod.XAxis),
-  { ssr: false }
-)
-const YAxis = dynamic(
-  () => import('recharts').then((mod) => mod.YAxis),
-  { ssr: false }
-)
-const CartesianGrid = dynamic(
-  () => import('recharts').then((mod) => mod.CartesianGrid),
-  { ssr: false }
-)
-const Tooltip = dynamic(
-  () => import('recharts').then((mod) => mod.Tooltip),
-  { ssr: false }
-)
+// Lazy load chart component
+const ZoneTrendCharts = dynamic(
+  () => import('./zone-trend-charts').then(mod => mod.ZoneTrendCharts),
+  { 
+    ssr: false,
+    loading: () => (
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {[1, 2, 3].map(i => (
+          <Card key={i}>
+            <CardHeader>
+              <div className="h-4 bg-gray-200 rounded animate-pulse w-32" />
+            </CardHeader>
+            <CardContent>
+              <div className="h-[250px] bg-gray-100 rounded animate-pulse" />
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    )
+  }
+);
 
 interface WaterGroupDetailsProps {
   waterData: WaterMeterData[];
@@ -57,9 +50,14 @@ export function WaterGroupDetails({ waterData }: WaterGroupDetailsProps) {
   const [selectedMonth, setSelectedMonth] = useState(MONTHS[MONTHS.length - 1]);
   const [searchTerm, setSearchTerm] = useState('');
   
-  const { zoneData } = useMemo(() => 
-    processWaterData(waterData), [waterData]
-  );
+  const { zoneData } = useMemo(() => {
+    try {
+      return processWaterData(waterData);
+    } catch (error) {
+      console.error('Error processing water data:', error);
+      return { monthlyData: [], zoneData: {} };
+    }
+  }, [waterData]);
 
   const currentZone = zoneData[selectedZone];
   const zoneKey = ZONE_OPTIONS.find(opt => opt.value === selectedZone)?.key || '';
@@ -210,79 +208,9 @@ export function WaterGroupDetails({ waterData }: WaterGroupDetailsProps) {
       </div>
 
       {/* Trend Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Zone Bulk Trend</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[250px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={trendData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip formatter={(value) => formatNumber(Number(value))} />
-                  <Line 
-                    type="monotone" 
-                    dataKey="bulk" 
-                    stroke="#0088FE" 
-                    strokeWidth={2}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Individual Meters Trend</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[250px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={trendData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip formatter={(value) => formatNumber(Number(value))} />
-                  <Line 
-                    type="monotone" 
-                    dataKey="individual" 
-                    stroke="#00C49F" 
-                    strokeWidth={2}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Loss Trend</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[250px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={trendData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip formatter={(value) => formatNumber(Number(value))} />
-                  <Line 
-                    type="monotone" 
-                    dataKey="loss" 
-                    stroke="#FF8042" 
-                    strokeWidth={2}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <ChartWrapper>
+        <ZoneTrendCharts trendData={trendData} />
+      </ChartWrapper>
 
       {/* Individual Meters Table */}
       <Card>
