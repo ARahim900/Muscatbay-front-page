@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ChevronRight, Droplets, Zap, Factory, ClipboardList } from "lucide-react"
+import { ChevronRight, Droplets, Zap, Factory, ClipboardList, Package } from "lucide-react"
 
 export default function Home() {
   return (
@@ -83,7 +83,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
               <Link
                 href="/water-system"
                 className="group relative overflow-hidden rounded-lg border bg-white p-6 shadow-md transition-all hover:shadow-xl"
@@ -156,6 +156,26 @@ export default function Home() {
                     <h3 className="text-xl font-bold text-[#4E4456]">Contractor Tracker</h3>
                     <p className="text-sm text-gray-500">
                       Track contractor activities, project timelines, and performance evaluations.
+                    </p>
+                  </div>
+                  <div className="mt-4 flex items-center text-[#4E4456]">
+                    <span className="text-sm font-medium">Learn more</span>
+                    <ChevronRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </div>
+                </div>
+              </Link>
+              <Link
+                href="/alm"
+                className="group relative overflow-hidden rounded-lg border bg-white p-6 shadow-md transition-all hover:shadow-xl"
+              >
+                <div className="flex h-full flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#4E4456]/10 text-[#4E4456]">
+                      <Package className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-xl font-bold text-[#4E4456]">ALM</h3>
+                    <p className="text-sm text-gray-500">
+                      Assets Lifecycle Management - Track and manage all facility assets throughout their lifecycle.
                     </p>
                   </div>
                   <div className="mt-4 flex items-center text-[#4E4456]">
