@@ -13,7 +13,7 @@ import {
   Droplet, CircleOff, ArrowLeft, MapPin
 } from 'lucide-react';
 import { EnhancedGroupDetailsSection } from './enhanced-group-details';
-import ZoneDetails from './zone-details';
+import ZoneDetailsEnhanced from './zone-details-enhanced';
 import Link from 'next/link';
 
 // Main App Component
@@ -24,31 +24,53 @@ const WaterAnalysisDashboard = () => {
   const [activeZoneFilter, setActiveZoneFilter] = useState('All Zones');
   const [dataLoaded, setDataLoaded] = useState(false);
 
-  // Sample meter data for zone details
+  // Sample meter data for zone details based on master database structure
   const meterData = [
     // L1 Main Supply
     { 'Meter Label': 'L1 Main Supply', pro: '', Level: 'L1', Zone: 'Main', Type: 'Bulk', 'Parent Meter': '', 'Jan-24': 32803, 'Feb-24': 27996, 'Mar-24': 23860, 'Apr-24': 31869, 'May-24': 30737, 'Jun-24': 41953, 'Jul-24': 35166, 'Aug-24': 35420, 'Sep-24': 41341, 'Oct-24': 31519, 'Nov-24': 35290, 'Dec-24': 36733, 'Jan-25': 32580, 'Feb-25': 44043, 'Mar-25': 34915, 'Apr-25': 46039 },
     
     // L2 Zone Bulk Meters
-    { 'Meter Label': 'Zone FM (01) Bulk', pro: '', Level: 'L2', Zone: 'FM', Type: 'Bulk', 'Parent Meter': 'L1 Main Supply', 'Jan-24': 1595, 'Feb-24': 1283, 'Mar-24': 1255, 'Apr-24': 1383, 'May-24': 1411, 'Jun-24': 2078, 'Jul-24': 2601, 'Aug-24': 1638, 'Sep-24': 1550, 'Oct-24': 2098, 'Nov-24': 1808, 'Dec-24': 1946, 'Jan-25': 2008, 'Feb-25': 1740, 'Mar-25': 1880, 'Apr-25': 1880 },
-    { 'Meter Label': 'Zone 03(A) Bulk', pro: '', Level: 'L2', Zone: '03(A)', Type: 'Bulk', 'Parent Meter': 'L1 Main Supply', 'Jan-24': 1234, 'Feb-24': 1099, 'Mar-24': 1297, 'Apr-24': 1892, 'May-24': 2254, 'Jun-24': 2227, 'Jul-24': 3313, 'Aug-24': 3172, 'Sep-24': 2698, 'Oct-24': 3715, 'Nov-24': 3501, 'Dec-24': 3796, 'Jan-25': 4235, 'Feb-25': 4273, 'Mar-25': 3591, 'Apr-25': 4041 },
-    { 'Meter Label': 'Zone 03(B) Bulk', pro: '', Level: 'L2', Zone: '03(B)', Type: 'Bulk', 'Parent Meter': 'L1 Main Supply', 'Jan-24': 2653, 'Feb-24': 2169, 'Mar-24': 2315, 'Apr-24': 2381, 'May-24': 2634, 'Jun-24': 2932, 'Jul-24': 3369, 'Aug-24': 3458, 'Sep-24': 3742, 'Oct-24': 2906, 'Nov-24': 2695, 'Dec-24': 3583, 'Jan-25': 3256, 'Feb-25': 2962, 'Mar-25': 3331, 'Apr-25': 2157 },
-    { 'Meter Label': 'Zone 05 Bulk', pro: '', Level: 'L2', Zone: '05', Type: 'Bulk', 'Parent Meter': 'L1 Main Supply', 'Jan-24': 4286, 'Feb-24': 3897, 'Mar-24': 4127, 'Apr-24': 4911, 'May-24': 2639, 'Jun-24': 4992, 'Jul-24': 5305, 'Aug-24': 4039, 'Sep-24': 2736, 'Oct-24': 3383, 'Nov-24': 1438, 'Dec-24': 3788, 'Jan-25': 4267, 'Feb-25': 4231, 'Mar-25': 3862, 'Apr-25': 3737 },
-    { 'Meter Label': 'Zone 08 Bulk', pro: '', Level: 'L2', Zone: '08', Type: 'Bulk', 'Parent Meter': 'L1 Main Supply', 'Jan-24': 2170, 'Feb-24': 1825, 'Mar-24': 2021, 'Apr-24': 2753, 'May-24': 2722, 'Jun-24': 3193, 'Jul-24': 3639, 'Aug-24': 3957, 'Sep-24': 3947, 'Oct-24': 4296, 'Nov-24': 3569, 'Dec-24': 3018, 'Jan-25': 1547, 'Feb-25': 1498, 'Mar-25': 2605, 'Apr-25': 3203 },
+    { 'Meter Label': 'Zone FM (01) Bulk', pro: '4300346', Level: 'L2', Zone: 'FM', Type: 'Bulk', 'Parent Meter': 'L1 Main Supply', 'Jan-24': 1595, 'Feb-24': 1283, 'Mar-24': 1255, 'Apr-24': 1383, 'May-24': 1411, 'Jun-24': 2078, 'Jul-24': 2601, 'Aug-24': 1638, 'Sep-24': 1550, 'Oct-24': 2098, 'Nov-24': 1808, 'Dec-24': 1946, 'Jan-25': 2008, 'Feb-25': 1740, 'Mar-25': 1880, 'Apr-25': 1880 },
+    { 'Meter Label': 'Zone 03(A) Bulk', pro: '4300343', Level: 'L2', Zone: '03(A)', Type: 'Bulk', 'Parent Meter': 'L1 Main Supply', 'Jan-24': 1234, 'Feb-24': 1099, 'Mar-24': 1297, 'Apr-24': 1892, 'May-24': 2254, 'Jun-24': 2227, 'Jul-24': 3313, 'Aug-24': 3172, 'Sep-24': 2698, 'Oct-24': 3715, 'Nov-24': 3501, 'Dec-24': 3796, 'Jan-25': 4235, 'Feb-25': 4273, 'Mar-25': 3591, 'Apr-25': 4041 },
+    { 'Meter Label': 'Zone 03(B) Bulk', pro: '4300344', Level: 'L2', Zone: '03(B)', Type: 'Bulk', 'Parent Meter': 'L1 Main Supply', 'Jan-24': 2653, 'Feb-24': 2169, 'Mar-24': 2315, 'Apr-24': 2381, 'May-24': 2634, 'Jun-24': 2932, 'Jul-24': 3369, 'Aug-24': 3458, 'Sep-24': 3742, 'Oct-24': 2906, 'Nov-24': 2695, 'Dec-24': 3583, 'Jan-25': 3256, 'Feb-25': 2962, 'Mar-25': 3331, 'Apr-25': 2157 },
+    { 'Meter Label': 'Zone 05 Bulk', pro: '4300345', Level: 'L2', Zone: '05', Type: 'Bulk', 'Parent Meter': 'L1 Main Supply', 'Jan-24': 4286, 'Feb-24': 3897, 'Mar-24': 4127, 'Apr-24': 4911, 'May-24': 2639, 'Jun-24': 4992, 'Jul-24': 5305, 'Aug-24': 4039, 'Sep-24': 2736, 'Oct-24': 3383, 'Nov-24': 1438, 'Dec-24': 3788, 'Jan-25': 4267, 'Feb-25': 4231, 'Mar-25': 3862, 'Apr-25': 3737 },
+    { 'Meter Label': 'Zone 08 Bulk', pro: '4300342', Level: 'L2', Zone: '08', Type: 'Bulk', 'Parent Meter': 'L1 Main Supply', 'Jan-24': 2170, 'Feb-24': 1825, 'Mar-24': 2021, 'Apr-24': 2753, 'May-24': 2722, 'Jun-24': 3193, 'Jul-24': 3639, 'Aug-24': 3957, 'Sep-24': 3947, 'Oct-24': 4296, 'Nov-24': 3569, 'Dec-24': 3018, 'Jan-25': 1547, 'Feb-25': 1498, 'Mar-25': 2605, 'Apr-25': 3203 },
+    { 'Meter Label': 'Zone VS Bulk', pro: '4300347', Level: 'L2', Zone: 'VS', Type: 'Bulk', 'Parent Meter': 'L1 Main Supply', 'Jan-24': 26, 'Feb-24': 19, 'Mar-24': 72, 'Apr-24': 60, 'May-24': 125, 'Jun-24': 277, 'Jul-24': 143, 'Aug-24': 137, 'Sep-24': 145, 'Oct-24': 63, 'Nov-24': 34, 'Dec-24': 17, 'Jan-25': 14, 'Feb-25': 12, 'Mar-25': 21, 'Apr-25': 13 },
     
-    // Sample L3 Individual Meters
+    // Sample L3 Individual Meters - Zone FM
     { 'Meter Label': 'FM-001', pro: 'ACC001', Level: 'L3', Zone: 'FM', Type: 'Residential_Villa', 'Parent Meter': 'Zone FM (01) Bulk', 'Jan-24': 156, 'Feb-24': 145, 'Mar-24': 132, 'Apr-24': 142, 'May-24': 148, 'Jun-24': 165, 'Jul-24': 178, 'Aug-24': 189, 'Sep-24': 167, 'Oct-24': 172, 'Nov-24': 163, 'Dec-24': 170, 'Jan-25': 155, 'Feb-25': 160, 'Mar-25': 168, 'Apr-25': 175 },
     { 'Meter Label': 'FM-002', pro: 'ACC002', Level: 'L3', Zone: 'FM', Type: 'Retail', 'Parent Meter': 'Zone FM (01) Bulk', 'Jan-24': 450, 'Feb-24': 390, 'Mar-24': 380, 'Apr-24': 410, 'May-24': 420, 'Jun-24': 380, 'Jul-24': 390, 'Aug-24': 420, 'Sep-24': 410, 'Oct-24': 430, 'Nov-24': 440, 'Dec-24': 480, 'Jan-25': 490, 'Feb-25': 465, 'Mar-25': 475, 'Apr-25': 485 },
     { 'Meter Label': 'FM-003', pro: 'ACC003', Level: 'L3', Zone: 'FM', Type: 'IRR_Services', 'Parent Meter': 'Zone FM (01) Bulk', 'Jan-24': 230, 'Feb-24': 210, 'Mar-24': 198, 'Apr-24': 205, 'May-24': 215, 'Jun-24': 245, 'Jul-24': 260, 'Aug-24': 240, 'Sep-24': 225, 'Oct-24': 235, 'Nov-24': 242, 'Dec-24': 250, 'Jan-25': 240, 'Feb-25': 238, 'Mar-25': 245, 'Apr-25': 248 },
+    { 'Meter Label': 'FM-004', pro: 'ACC004', Level: 'L3', Zone: 'FM', Type: 'Building_Common', 'Parent Meter': 'Zone FM (01) Bulk', 'Jan-24': 140, 'Feb-24': 130, 'Mar-24': 125, 'Apr-24': 135, 'May-24': 138, 'Jun-24': 142, 'Jul-24': 145, 'Aug-24': 150, 'Sep-24': 148, 'Oct-24': 152, 'Nov-24': 155, 'Dec-24': 160, 'Jan-25': 158, 'Feb-25': 155, 'Mar-25': 162, 'Apr-25': 166 },
+    { 'Meter Label': 'FM-005', pro: 'ACC005', Level: 'L3', Zone: 'FM', Type: 'Commercial', 'Parent Meter': 'Zone FM (01) Bulk', 'Jan-24': 236, 'Feb-24': 220, 'Mar-24': 215, 'Apr-24': 225, 'May-24': 228, 'Jun-24': 230, 'Jul-24': 235, 'Aug-24': 240, 'Sep-24': 238, 'Oct-24': 242, 'Nov-24': 245, 'Dec-24': 250, 'Jan-25': 248, 'Feb-25': 245, 'Mar-25': 252, 'Apr-25': 255 },
     
     // Sample DC Meters
     { 'Meter Label': 'DC-FM-01', pro: 'DC001', Level: 'DC', Zone: 'FM', Type: 'DC', 'Parent Meter': 'Zone FM (01) Bulk', 'Jan-24': 80, 'Feb-24': 75, 'Mar-24': 78, 'Apr-24': 82, 'May-24': 85, 'Jun-24': 90, 'Jul-24': 95, 'Aug-24': 88, 'Sep-24': 85, 'Oct-24': 87, 'Nov-24': 90, 'Dec-24': 92, 'Jan-25': 85, 'Feb-25': 87, 'Mar-25': 89, 'Apr-25': 90 },
+    { 'Meter Label': 'DC-03A-01', pro: 'DC002', Level: 'DC', Zone: '03(A)', Type: 'DC', 'Parent Meter': 'Zone 03(A) Bulk', 'Jan-24': 60, 'Feb-24': 58, 'Mar-24': 55, 'Apr-24': 62, 'May-24': 65, 'Jun-24': 68, 'Jul-24': 70, 'Aug-24': 72, 'Sep-24': 70, 'Oct-24': 73, 'Nov-24': 75, 'Dec-24': 78, 'Jan-25': 76, 'Feb-25': 74, 'Mar-25': 77, 'Apr-25': 80 },
     
-    // Add more sample meters for other zones...
+    // Sample Zone 03(A) meters
     { 'Meter Label': '03A-001', pro: 'ACC101', Level: 'L3', Zone: '03(A)', Type: 'Residential_Apartment', 'Parent Meter': 'Zone 03(A) Bulk', 'Jan-24': 120, 'Feb-24': 115, 'Mar-24': 118, 'Apr-24': 125, 'May-24': 130, 'Jun-24': 128, 'Jul-24': 132, 'Aug-24': 135, 'Sep-24': 130, 'Oct-24': 138, 'Nov-24': 140, 'Dec-24': 142, 'Jan-25': 135, 'Feb-25': 130, 'Mar-25': 125, 'Apr-25': 145 },
+    { 'Meter Label': '03A-002', pro: 'ACC102', Level: 'L3', Zone: '03(A)', Type: 'Retail', 'Parent Meter': 'Zone 03(A) Bulk', 'Jan-24': 280, 'Feb-24': 270, 'Mar-24': 275, 'Apr-24': 285, 'May-24': 290, 'Jun-24': 295, 'Jul-24': 300, 'Aug-24': 305, 'Sep-24': 295, 'Oct-24': 310, 'Nov-24': 315, 'Dec-24': 320, 'Jan-25': 315, 'Feb-25': 310, 'Mar-25': 318, 'Apr-25': 325 },
+    { 'Meter Label': '03A-003', pro: 'ACC103', Level: 'L3', Zone: '03(A)', Type: 'IRR_Services', 'Parent Meter': 'Zone 03(A) Bulk', 'Jan-24': 150, 'Feb-24': 145, 'Mar-24': 140, 'Apr-24': 155, 'May-24': 160, 'Jun-24': 165, 'Jul-24': 170, 'Aug-24': 175, 'Sep-24': 168, 'Oct-24': 172, 'Nov-24': 178, 'Dec-24': 180, 'Jan-25': 175, 'Feb-25': 170, 'Mar-25': 168, 'Apr-25': 185 },
+    { 'Meter Label': '03A-004', pro: 'ACC104', Level: 'L3', Zone: '03(A)', Type: 'Building_Common', 'Parent Meter': 'Zone 03(A) Bulk', 'Jan-24': 90, 'Feb-24': 88, 'Mar-24': 85, 'Apr-24': 92, 'May-24': 95, 'Jun-24': 98, 'Jul-24': 100, 'Aug-24': 102, 'Sep-24': 98, 'Oct-24': 105, 'Nov-24': 108, 'Dec-24': 110, 'Jan-25': 105, 'Feb-25': 102, 'Mar-25': 100, 'Apr-25': 112 },
+    { 'Meter Label': '03A-005', pro: 'ACC105', Level: 'L3', Zone: '03(A)', Type: 'D_Building_Common', 'Parent Meter': 'Zone 03(A) Bulk', 'Jan-24': 30, 'Feb-24': 28, 'Mar-24': 25, 'Apr-24': 32, 'May-24': 35, 'Jun-24': 38, 'Jul-24': 40, 'Aug-24': 42, 'Sep-24': 38, 'Oct-24': 45, 'Nov-24': 48, 'Dec-24': 50, 'Jan-25': 45, 'Feb-25': 42, 'Mar-25': 40, 'Apr-25': 52 },
+    { 'Meter Label': '03A-006', pro: 'ACC106', Level: 'L3', Zone: '03(A)', Type: 'MB_Common', 'Parent Meter': 'Zone 03(A) Bulk', 'Jan-24': 20, 'Feb-24': 18, 'Mar-24': 15, 'Apr-24': 22, 'May-24': 25, 'Jun-24': 28, 'Jul-24': 30, 'Aug-24': 32, 'Sep-24': 28, 'Oct-24': 35, 'Nov-24': 38, 'Dec-24': 40, 'Jan-25': 35, 'Feb-25': 32, 'Mar-25': 30, 'Apr-25': 42 },
+    
+    // Sample Zone 03(B) meters
     { 'Meter Label': '03B-001', pro: 'ACC201', Level: 'L3', Zone: '03(B)', Type: 'Retail', 'Parent Meter': 'Zone 03(B) Bulk', 'Jan-24': 320, 'Feb-24': 310, 'Mar-24': 315, 'Apr-24': 325, 'May-24': 330, 'Jun-24': 340, 'Jul-24': 335, 'Aug-24': 332, 'Sep-24': 338, 'Oct-24': 342, 'Nov-24': 340, 'Dec-24': 350, 'Jan-25': 345, 'Feb-25': 340, 'Mar-25': 348, 'Apr-25': 355 },
+    { 'Meter Label': '03B-002', pro: 'ACC202', Level: 'L3', Zone: '03(B)', Type: 'Residential_Villa', 'Parent Meter': 'Zone 03(B) Bulk', 'Jan-24': 180, 'Feb-24': 175, 'Mar-24': 172, 'Apr-24': 185, 'May-24': 188, 'Jun-24': 190, 'Jul-24': 195, 'Aug-24': 198, 'Sep-24': 192, 'Oct-24': 200, 'Nov-24': 205, 'Dec-24': 210, 'Jan-25': 200, 'Feb-25': 195, 'Mar-25': 192, 'Apr-25': 215 },
+    { 'Meter Label': '03B-003', pro: 'ACC203', Level: 'L3', Zone: '03(B)', Type: 'IRR_Services', 'Parent Meter': 'Zone 03(B) Bulk', 'Jan-24': 140, 'Feb-24': 135, 'Mar-24': 130, 'Apr-24': 145, 'May-24': 148, 'Jun-24': 150, 'Jul-24': 155, 'Aug-24': 158, 'Sep-24': 152, 'Oct-24': 160, 'Nov-24': 165, 'Dec-24': 170, 'Jan-25': 160, 'Feb-25': 155, 'Mar-25': 152, 'Apr-25': 175 },
+    
+    // Sample Zone 05 meters
     { 'Meter Label': '05-001', pro: 'ACC301', Level: 'L3', Zone: '05', Type: 'Residential_Villa', 'Parent Meter': 'Zone 05 Bulk', 'Jan-24': 280, 'Feb-24': 275, 'Mar-24': 270, 'Apr-24': 285, 'May-24': 290, 'Jun-24': 295, 'Jul-24': 300, 'Aug-24': 305, 'Sep-24': 295, 'Oct-24': 310, 'Nov-24': 308, 'Dec-24': 315, 'Jan-25': 310, 'Feb-25': 305, 'Mar-25': 312, 'Apr-25': 320 },
+    { 'Meter Label': '05-002', pro: 'ACC302', Level: 'L3', Zone: '05', Type: 'Retail', 'Parent Meter': 'Zone 05 Bulk', 'Jan-24': 650, 'Feb-24': 640, 'Mar-24': 630, 'Apr-24': 660, 'May-24': 670, 'Jun-24': 680, 'Jul-24': 690, 'Aug-24': 700, 'Sep-24': 685, 'Oct-24': 710, 'Nov-24': 720, 'Dec-24': 730, 'Jan-25': 715, 'Feb-25': 700, 'Mar-25': 725, 'Apr-25': 740 },
+    { 'Meter Label': '05-003', pro: 'ACC303', Level: 'L3', Zone: '05', Type: 'Commercial', 'Parent Meter': 'Zone 05 Bulk', 'Jan-24': 420, 'Feb-24': 410, 'Mar-24': 400, 'Apr-24': 430, 'May-24': 440, 'Jun-24': 450, 'Jul-24': 460, 'Aug-24': 470, 'Sep-24': 455, 'Oct-24': 480, 'Nov-24': 490, 'Dec-24': 500, 'Jan-25': 485, 'Feb-25': 470, 'Mar-25': 495, 'Apr-25': 510 },
+    
+    // Sample Zone 08 meters
     { 'Meter Label': '08-001', pro: 'ACC401', Level: 'L3', Zone: '08', Type: 'Building_Common', 'Parent Meter': 'Zone 08 Bulk', 'Jan-24': 45, 'Feb-24': 42, 'Mar-24': 40, 'Apr-24': 43, 'May-24': 44, 'Jun-24': 46, 'Jul-24': 48, 'Aug-24': 47, 'Sep-24': 45, 'Oct-24': 48, 'Nov-24': 50, 'Dec-24': 52, 'Jan-25': 50, 'Feb-25': 48, 'Mar-25': 49, 'Apr-25': 51 },
+    { 'Meter Label': '08-002', pro: 'ACC402', Level: 'L3', Zone: '08', Type: 'Residential_Apartment', 'Parent Meter': 'Zone 08 Bulk', 'Jan-24': 220, 'Feb-24': 215, 'Mar-24': 210, 'Apr-24': 225, 'May-24': 230, 'Jun-24': 235, 'Jul-24': 240, 'Aug-24': 245, 'Sep-24': 238, 'Oct-24': 250, 'Nov-24': 255, 'Dec-24': 260, 'Jan-25': 250, 'Feb-25': 245, 'Mar-25': 252, 'Apr-25': 265 },
+    { 'Meter Label': '08-003', pro: 'ACC403', Level: 'L3', Zone: '08', Type: 'Retail', 'Parent Meter': 'Zone 08 Bulk', 'Jan-24': 480, 'Feb-24': 470, 'Mar-24': 460, 'Apr-24': 490, 'May-24': 500, 'Jun-24': 510, 'Jul-24': 520, 'Aug-24': 530, 'Sep-24': 515, 'Oct-24': 540, 'Nov-24': 550, 'Dec-24': 560, 'Jan-25': 545, 'Feb-25': 530, 'Mar-25': 555, 'Apr-25': 570 },
+    { 'Meter Label': '08-004', pro: 'ACC404', Level: 'L3', Zone: '08', Type: 'IRR_Services', 'Parent Meter': 'Zone 08 Bulk', 'Jan-24': 85, 'Feb-24': 82, 'Mar-24': 80, 'Apr-24': 87, 'May-24': 90, 'Jun-24': 92, 'Jul-24': 95, 'Aug-24': 97, 'Sep-24': 93, 'Oct-24': 100, 'Nov-24': 102, 'Dec-24': 105, 'Jan-25': 100, 'Feb-25': 97, 'Mar-25': 102, 'Apr-25': 108 },
   ];
 
   // Simulate data loading
@@ -74,7 +96,7 @@ const WaterAnalysisDashboard = () => {
                   activeZoneFilter={activeZoneFilter}
                 />;
       case 'zone-details':
-        return <ZoneDetails data={meterData} />;
+        return <ZoneDetailsEnhanced data={meterData} />;
       case 'type-details':
         return <TypeDetailsSection
                   activeMonthFilter={activeMonthFilter}
