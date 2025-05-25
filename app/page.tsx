@@ -7,6 +7,7 @@ import {
   BarChart3,
   Zap,
   Recycle,
+  Droplets,
   ArrowRight,
   Building2,
   Users,
@@ -41,6 +42,17 @@ export default function HomePage() {
       color: "from-yellow-500 to-orange-500",
       stats: { meters: "342", consumption: "2.4MW", efficiency: "96%" },
       features: ["Smart metering", "Load balancing", "Energy optimization"],
+    },
+    {
+      id: "water-system",
+      title: "Water System",
+      description:
+        "Advanced water distribution analytics with real-time flow monitoring, loss detection, and zone-based management.",
+      icon: <Droplets className="w-8 h-8" />,
+      href: "/water-system",
+      color: "from-cyan-500 to-blue-600",
+      stats: { zones: "8", meters: "328", efficiency: "85%" },
+      features: ["Loss analysis", "Zone monitoring", "Flow tracking"],
     },
     {
       id: "stp-plant",
@@ -131,8 +143,8 @@ export default function HomePage() {
               </span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Comprehensive monitoring and analytics for contractor tracking, electrical systems, and sewage treatment
-              operations. Built for efficiency, designed for excellence.
+              Comprehensive monitoring and analytics for contractor tracking, electrical systems, water distribution,
+              and sewage treatment operations. Built for efficiency, designed for excellence.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -163,7 +175,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8">
             {systems.map((system) => (
               <Link
                 key={system.id}
@@ -311,6 +323,11 @@ export default function HomePage() {
                 <li>
                   <Link href="/electricity-system" className="hover:text-white transition-colors">
                     Electricity System
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/water-system" className="hover:text-white transition-colors">
+                    Water System
                   </Link>
                 </li>
                 <li>
