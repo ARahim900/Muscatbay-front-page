@@ -20,33 +20,23 @@ import {
 } from 'recharts'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { muscatBayColors, chartColors, gradients } from '@/lib/design-system'
 
-// Color scheme based on #4E4456
-const colors = {
-  primary: '#4E4456',
-  secondary: '#6B5B7B',
-  accent: '#8B7BA3',
-  success: '#10B981',
-  warning: '#F59E0B',
-  error: '#EF4444',
-  info: '#3B82F6',
-  purple: '#8B5CF6',
-  gradient: ['#4E4456', '#6B5B7B', '#8B7BA3', '#10B981', '#3B82F6', '#8B5CF6']
-}
-
-// Custom tooltip component
+// Custom tooltip component with brand styling
 function CustomTooltip({ active, payload, label, formatter }: any) {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white dark:bg-gray-800 p-3 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg">
-        <p className="font-medium text-[#4E4456] dark:text-white mb-2">{label}</p>
+      <div className="bg-white dark:bg-gray-800 p-4 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl backdrop-blur-sm">
+        <p className="font-semibold mb-3" style={{ color: muscatBayColors.primary[500] }}>
+          {label}
+        </p>
         {payload.map((pld: any, index: number) => (
-          <div key={index} className="flex items-center gap-2 mb-1">
+          <div key={index} className="flex items-center gap-3 mb-2">
             <div 
-              className="w-3 h-3 rounded-full" 
+              className="w-4 h-4 rounded-full shadow-sm" 
               style={{ backgroundColor: pld.color }}
             />
-            <span className="text-sm text-gray-600 dark:text-gray-300">
+            <span className="text-sm font-medium" style={{ color: muscatBayColors.secondary[500] }}>
               {pld.name}: {formatter ? formatter(pld.value, pld.name) : pld.value}
             </span>
           </div>
@@ -57,7 +47,7 @@ function CustomTooltip({ active, payload, label, formatter }: any) {
   return null
 }
 
-// Monthly Consumption Trend Chart
+// Monthly Consumption Trend Chart with gradient areas
 export function MonthlyConsumptionChart({ data }: { data: any[] }) {
   const chartData = useMemo(() => {
     return data.map(item => ({
@@ -70,33 +60,49 @@ export function MonthlyConsumptionChart({ data }: { data: any[] }) {
   }, [data])
 
   return (
-    <Card className="border-0 shadow-lg">
-      <CardHeader>
-        <CardTitle className="text-lg font-semibold text-[#4E4456]">Monthly Consumption Trend</CardTitle>
-        <CardDescription>6-month electricity usage pattern with cost analysis</CardDescription>
+    <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden">
+      <div 
+        className="absolute inset-0 opacity-5"
+        style={{ background: gradients.primary }}
+      />
+      <CardHeader className="relative">
+        <div className="flex items-center gap-3">
+          <div 
+            className="w-3 h-3 rounded-full"
+            style={{ backgroundColor: muscatBayColors.primary[500] }}
+          />
+          <CardTitle className="text-lg font-semibold" style={{ color: muscatBayColors.primary[500] }}>
+            Monthly Consumption Trend
+          </CardTitle>
+        </div>
+        <CardDescription className="text-sm" style={{ color: muscatBayColors.secondary[500] }}>
+          6-month electricity usage pattern with cost analysis
+        </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="relative">
         <ResponsiveContainer width="100%" height={350}>
           <AreaChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
             <defs>
               <linearGradient id="consumptionGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor={colors.primary} stopOpacity={0.8}/>
-                <stop offset="95%" stopColor={colors.primary} stopOpacity={0.1}/>
+                <stop offset="5%" stopColor={muscatBayColors.primary[500]} stopOpacity={0.8}/>
+                <stop offset="50%" stopColor={muscatBayColors.secondary[500]} stopOpacity={0.4}/>
+                <stop offset="95%" stopColor={muscatBayColors.accent[500]} stopOpacity={0.1}/>
               </linearGradient>
               <linearGradient id="costGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor={colors.success} stopOpacity={0.8}/>
-                <stop offset="95%" stopColor={colors.success} stopOpacity={0.1}/>
+                <stop offset="5%" stopColor={muscatBayColors.accent[500]} stopOpacity={0.8}/>
+                <stop offset="50%" stopColor={muscatBayColors.light[500]} stopOpacity={0.4}/>
+                <stop offset="95%" stopColor={muscatBayColors.neutral[500]} stopOpacity={0.1}/>
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+            <CartesianGrid strokeDasharray="3 3" stroke={muscatBayColors.neutral[200]} />
             <XAxis 
               dataKey="month" 
-              tick={{ fontSize: 12, fill: colors.primary }}
-              axisLine={{ stroke: '#e0e0e0' }}
+              tick={{ fontSize: 12, fill: muscatBayColors.primary[500] }}
+              axisLine={{ stroke: muscatBayColors.neutral[300] }}
             />
             <YAxis 
-              tick={{ fontSize: 12, fill: colors.primary }}
-              axisLine={{ stroke: '#e0e0e0' }}
+              tick={{ fontSize: 12, fill: muscatBayColors.primary[500] }}
+              axisLine={{ stroke: muscatBayColors.neutral[300] }}
             />
             <Tooltip 
               content={<CustomTooltip formatter={(value: number, name: string) => 
@@ -107,7 +113,7 @@ export function MonthlyConsumptionChart({ data }: { data: any[] }) {
             <Area
               type="monotone"
               dataKey="consumption"
-              stroke={colors.primary}
+              stroke={muscatBayColors.primary[500]}
               strokeWidth={3}
               fillOpacity={1}
               fill="url(#consumptionGradient)"
@@ -116,7 +122,7 @@ export function MonthlyConsumptionChart({ data }: { data: any[] }) {
             <Area
               type="monotone"
               dataKey="cost"
-              stroke={colors.success}
+              stroke={muscatBayColors.accent[500]}
               strokeWidth={2}
               fillOpacity={0.6}
               fill="url(#costGradient)"
@@ -129,7 +135,7 @@ export function MonthlyConsumptionChart({ data }: { data: any[] }) {
   )
 }
 
-// Category Distribution Pie Chart
+// Category Distribution Pie Chart with brand colors
 export function CategoryDistributionChart({ data }: { data: any[] }) {
   const chartData = useMemo(() => {
     return data.map((item, index) => ({
@@ -138,7 +144,7 @@ export function CategoryDistributionChart({ data }: { data: any[] }) {
       percentage: parseFloat(item.percentage),
       cost: item.cost,
       count: item.count,
-      color: colors.gradient[index % colors.gradient.length]
+      color: chartColors[index % chartColors.length]
     }))
   }, [data])
 
@@ -157,6 +163,7 @@ export function CategoryDistributionChart({ data }: { data: any[] }) {
         dominantBaseline="central"
         fontSize={12}
         fontWeight="bold"
+        style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.3))' }}
       >
         {`${percentage}%`}
       </text>
@@ -164,12 +171,26 @@ export function CategoryDistributionChart({ data }: { data: any[] }) {
   }
 
   return (
-    <Card className="border-0 shadow-lg">
-      <CardHeader>
-        <CardTitle className="text-lg font-semibold text-[#4E4456]">Category Distribution</CardTitle>
-        <CardDescription>Consumption breakdown by facility category</CardDescription>
+    <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden">
+      <div 
+        className="absolute inset-0 opacity-5"
+        style={{ background: gradients.secondary }}
+      />
+      <CardHeader className="relative">
+        <div className="flex items-center gap-3">
+          <div 
+            className="w-3 h-3 rounded-full"
+            style={{ backgroundColor: muscatBayColors.accent[500] }}
+          />
+          <CardTitle className="text-lg font-semibold" style={{ color: muscatBayColors.primary[500] }}>
+            Category Distribution
+          </CardTitle>
+        </div>
+        <CardDescription className="text-sm" style={{ color: muscatBayColors.secondary[500] }}>
+          Consumption breakdown by facility category
+        </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
@@ -182,6 +203,8 @@ export function CategoryDistributionChart({ data }: { data: any[] }) {
                 outerRadius={100}
                 fill="#8884d8"
                 dataKey="value"
+                stroke="white"
+                strokeWidth={2}
               >
                 {chartData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />
@@ -194,22 +217,33 @@ export function CategoryDistributionChart({ data }: { data: any[] }) {
           </ResponsiveContainer>
           
           <div className="space-y-3">
-            <h4 className="font-semibold text-[#4E4456]">Category Breakdown</h4>
+            <h4 className="font-semibold" style={{ color: muscatBayColors.primary[500] }}>
+              Category Breakdown
+            </h4>
             {chartData.map((item, index) => (
-              <div key={item.name} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <div key={item.name} className="flex items-center justify-between p-4 rounded-xl transition-all duration-200 hover:scale-105" 
+                   style={{ background: `linear-gradient(135deg, ${item.color}10, ${item.color}05)` }}>
                 <div className="flex items-center gap-3">
                   <div 
-                    className="w-4 h-4 rounded-full" 
+                    className="w-4 h-4 rounded-full shadow-sm" 
                     style={{ backgroundColor: item.color }}
                   />
                   <div>
-                    <p className="font-medium text-sm">{item.name}</p>
-                    <p className="text-xs text-muted-foreground">{item.count} meters</p>
+                    <p className="font-medium text-sm" style={{ color: muscatBayColors.primary[500] }}>
+                      {item.name}
+                    </p>
+                    <p className="text-xs" style={{ color: muscatBayColors.secondary[500] }}>
+                      {item.count} meters
+                    </p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="font-semibold text-sm">{item.percentage}%</p>
-                  <p className="text-xs text-muted-foreground">{item.value.toLocaleString()} kWh</p>
+                  <p className="font-semibold text-sm" style={{ color: muscatBayColors.primary[500] }}>
+                    {item.percentage}%
+                  </p>
+                  <p className="text-xs" style={{ color: muscatBayColors.secondary[500] }}>
+                    {item.value.toLocaleString()} kWh
+                  </p>
                 </div>
               </div>
             ))}
@@ -230,31 +264,45 @@ export function FacilityTypeChart({ data }: { data: any[] }) {
       cost: item.cost,
       count: item.count,
       average: item.averageConsumption,
-      color: colors.gradient[index % colors.gradient.length]
+      color: chartColors[index % chartColors.length]
     }))
   }, [data])
 
   return (
-    <Card className="border-0 shadow-lg">
-      <CardHeader>
-        <CardTitle className="text-lg font-semibold text-[#4E4456]">Facility Type Analysis</CardTitle>
-        <CardDescription>Consumption comparison by facility type</CardDescription>
+    <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden">
+      <div 
+        className="absolute inset-0 opacity-5"
+        style={{ background: gradients.accent }}
+      />
+      <CardHeader className="relative">
+        <div className="flex items-center gap-3">
+          <div 
+            className="w-3 h-3 rounded-full"
+            style={{ backgroundColor: muscatBayColors.light[500] }}
+          />
+          <CardTitle className="text-lg font-semibold" style={{ color: muscatBayColors.primary[500] }}>
+            Facility Type Analysis
+          </CardTitle>
+        </div>
+        <CardDescription className="text-sm" style={{ color: muscatBayColors.secondary[500] }}>
+          Consumption comparison by facility type
+        </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="relative">
         <ResponsiveContainer width="100%" height={400}>
           <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+            <CartesianGrid strokeDasharray="3 3" stroke={muscatBayColors.neutral[200]} />
             <XAxis 
               dataKey="name" 
-              tick={{ fontSize: 11, fill: colors.primary }}
-              axisLine={{ stroke: '#e0e0e0' }}
+              tick={{ fontSize: 11, fill: muscatBayColors.primary[500] }}
+              axisLine={{ stroke: muscatBayColors.neutral[300] }}
               angle={-45}
               textAnchor="end"
               height={100}
             />
             <YAxis 
-              tick={{ fontSize: 12, fill: colors.primary }}
-              axisLine={{ stroke: '#e0e0e0' }}
+              tick={{ fontSize: 12, fill: muscatBayColors.primary[500] }}
+              axisLine={{ stroke: muscatBayColors.neutral[300] }}
             />
             <Tooltip 
               content={<CustomTooltip formatter={(value: number, name: string) => {
@@ -267,13 +315,13 @@ export function FacilityTypeChart({ data }: { data: any[] }) {
             <Legend />
             <Bar 
               dataKey="consumption" 
-              fill={colors.primary} 
+              fill={muscatBayColors.primary[500]}
               name="Total Consumption (kWh)"
               radius={[4, 4, 0, 0]}
             />
             <Bar 
               dataKey="average" 
-              fill={colors.info} 
+              fill={muscatBayColors.accent[500]}
               name="Avg per Meter (kWh)"
               radius={[4, 4, 0, 0]}
             />
@@ -284,7 +332,7 @@ export function FacilityTypeChart({ data }: { data: any[] }) {
   )
 }
 
-// Cost Analysis Chart
+// Cost Analysis Chart with multiple lines
 export function CostAnalysisChart({ monthlyData, categoryData }: { monthlyData: any[], categoryData: any[] }) {
   const combinedData = useMemo(() => {
     return monthlyData.map(month => {
@@ -302,30 +350,52 @@ export function CostAnalysisChart({ monthlyData, categoryData }: { monthlyData: 
   }, [monthlyData, categoryData])
 
   return (
-    <Card className="border-0 shadow-lg">
-      <CardHeader>
+    <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden">
+      <div 
+        className="absolute inset-0 opacity-5"
+        style={{ background: gradients.neutral }}
+      />
+      <CardHeader className="relative">
         <div className="flex items-center justify-between">
-          <div>
-            <CardTitle className="text-lg font-semibold text-[#4E4456]">Cost Analysis</CardTitle>
-            <CardDescription>Monthly cost breakdown by category</CardDescription>
+          <div className="flex items-center gap-3">
+            <div 
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: muscatBayColors.neutral[500] }}
+            />
+            <div>
+              <CardTitle className="text-lg font-semibold" style={{ color: muscatBayColors.primary[500] }}>
+                Cost Analysis
+              </CardTitle>
+              <CardDescription className="text-sm" style={{ color: muscatBayColors.secondary[500] }}>
+                Monthly cost breakdown by category
+              </CardDescription>
+            </div>
           </div>
-          <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+          <Badge 
+            variant="outline" 
+            className="px-3 py-1 text-xs font-medium border-2"
+            style={{ 
+              backgroundColor: `${muscatBayColors.success[500]}15`,
+              borderColor: muscatBayColors.success[500],
+              color: muscatBayColors.success[600]
+            }}
+          >
             Rate: 0.025 OMR/kWh
           </Badge>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="relative">
         <ResponsiveContainer width="100%" height={350}>
           <LineChart data={combinedData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+            <CartesianGrid strokeDasharray="3 3" stroke={muscatBayColors.neutral[200]} />
             <XAxis 
               dataKey="month" 
-              tick={{ fontSize: 12, fill: colors.primary }}
-              axisLine={{ stroke: '#e0e0e0' }}
+              tick={{ fontSize: 12, fill: muscatBayColors.primary[500] }}
+              axisLine={{ stroke: muscatBayColors.neutral[300] }}
             />
             <YAxis 
-              tick={{ fontSize: 12, fill: colors.primary }}
-              axisLine={{ stroke: '#e0e0e0' }}
+              tick={{ fontSize: 12, fill: muscatBayColors.primary[500] }}
+              axisLine={{ stroke: muscatBayColors.neutral[300] }}
             />
             <Tooltip 
               content={<CustomTooltip formatter={(value: number) => `${value.toFixed(2)} OMR`} />}
@@ -334,19 +404,19 @@ export function CostAnalysisChart({ monthlyData, categoryData }: { monthlyData: 
             <Line
               type="monotone"
               dataKey="totalCost"
-              stroke={colors.primary}
+              stroke={muscatBayColors.primary[500]}
               strokeWidth={3}
-              dot={{ fill: colors.primary, strokeWidth: 2, r: 6 }}
+              dot={{ fill: muscatBayColors.primary[500], strokeWidth: 2, r: 6 }}
               name="Total Cost (OMR)"
             />
-            {categoryData.slice(0, 3).map((cat, index) => (
+            {categoryData.slice(0, 4).map((cat, index) => (
               <Line
                 key={cat.category}
                 type="monotone"
                 dataKey={cat.category.replace(/\s+/g, '')}
-                stroke={colors.gradient[index + 1]}
+                stroke={chartColors[index + 1]}
                 strokeWidth={2}
-                dot={{ fill: colors.gradient[index + 1], strokeWidth: 2, r: 4 }}
+                dot={{ fill: chartColors[index + 1], strokeWidth: 2, r: 4 }}
                 name={`${cat.category} (OMR)`}
                 strokeDasharray={index > 0 ? "5 5" : ""}
               />
@@ -358,34 +428,72 @@ export function CostAnalysisChart({ monthlyData, categoryData }: { monthlyData: 
   )
 }
 
-// Efficiency Metrics Chart
+// Efficiency Metrics Chart with horizontal bars
 export function EfficiencyMetricsChart({ data }: { data: any }) {
   const efficiencyData = [
-    { name: 'System Efficiency', value: 82, target: 85, color: colors.success },
-    { name: 'Data Quality', value: 100, target: 95, color: colors.info },
-    { name: 'Cost Optimization', value: 67, target: 80, color: colors.warning },
-    { name: 'Energy Conservation', value: 73, target: 75, color: colors.purple }
+    { 
+      name: 'System Efficiency', 
+      value: 82, 
+      target: 85, 
+      color: muscatBayColors.primary[500],
+      bgColor: `${muscatBayColors.primary[500]}15`
+    },
+    { 
+      name: 'Data Quality', 
+      value: 100, 
+      target: 95, 
+      color: muscatBayColors.accent[500],
+      bgColor: `${muscatBayColors.accent[500]}15`
+    },
+    { 
+      name: 'Cost Optimization', 
+      value: 67, 
+      target: 80, 
+      color: muscatBayColors.light[500],
+      bgColor: `${muscatBayColors.light[500]}15`
+    },
+    { 
+      name: 'Energy Conservation', 
+      value: 73, 
+      target: 75, 
+      color: muscatBayColors.neutral[500],
+      bgColor: `${muscatBayColors.neutral[500]}15`
+    }
   ]
 
   return (
-    <Card className="border-0 shadow-lg">
-      <CardHeader>
-        <CardTitle className="text-lg font-semibold text-[#4E4456]">System Performance</CardTitle>
-        <CardDescription>Key efficiency and performance indicators</CardDescription>
+    <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden">
+      <div 
+        className="absolute inset-0 opacity-5"
+        style={{ background: gradients.hero }}
+      />
+      <CardHeader className="relative">
+        <div className="flex items-center gap-3">
+          <div 
+            className="w-3 h-3 rounded-full"
+            style={{ backgroundColor: muscatBayColors.support[500] }}
+          />
+          <CardTitle className="text-lg font-semibold" style={{ color: muscatBayColors.primary[500] }}>
+            System Performance
+          </CardTitle>
+        </div>
+        <CardDescription className="text-sm" style={{ color: muscatBayColors.secondary[500] }}>
+          Key efficiency and performance indicators
+        </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="relative">
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={efficiencyData} layout="horizontal" margin={{ top: 20, right: 30, left: 80, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+            <CartesianGrid strokeDasharray="3 3" stroke={muscatBayColors.neutral[200]} />
             <XAxis 
               type="number" 
               domain={[0, 100]}
-              tick={{ fontSize: 12, fill: colors.primary }}
+              tick={{ fontSize: 12, fill: muscatBayColors.primary[500] }}
             />
             <YAxis 
               type="category" 
               dataKey="name" 
-              tick={{ fontSize: 12, fill: colors.primary }}
+              tick={{ fontSize: 12, fill: muscatBayColors.primary[500] }}
               width={80}
             />
             <Tooltip 
@@ -406,19 +514,29 @@ export function EfficiencyMetricsChart({ data }: { data: any }) {
           </BarChart>
         </ResponsiveContainer>
         
-        <div className="mt-4 grid grid-cols-2 gap-4">
+        <div className="mt-6 grid grid-cols-2 gap-4">
           {efficiencyData.map((metric, index) => (
-            <div key={metric.name} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <div className="flex items-center gap-2">
+            <div 
+              key={metric.name} 
+              className="flex items-center justify-between p-4 rounded-xl transition-all duration-200 hover:scale-105"
+              style={{ backgroundColor: metric.bgColor }}
+            >
+              <div className="flex items-center gap-3">
                 <div 
-                  className="w-3 h-3 rounded-full" 
+                  className="w-3 h-3 rounded-full shadow-sm" 
                   style={{ backgroundColor: metric.color }}
                 />
-                <span className="text-sm font-medium">{metric.name}</span>
+                <span className="text-sm font-medium" style={{ color: muscatBayColors.primary[500] }}>
+                  {metric.name}
+                </span>
               </div>
               <div className="text-right">
-                <p className="font-semibold">{metric.value}%</p>
-                <p className="text-xs text-muted-foreground">Target: {metric.target}%</p>
+                <p className="font-semibold" style={{ color: muscatBayColors.primary[500] }}>
+                  {metric.value}%
+                </p>
+                <p className="text-xs" style={{ color: muscatBayColors.secondary[500] }}>
+                  Target: {metric.target}%
+                </p>
               </div>
             </div>
           ))}
