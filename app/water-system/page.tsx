@@ -1,5 +1,5 @@
-import WaterAnalysisDashboard from '@/components/water-system/water-analysis-dashboard'
+import WaterManagementDashboard from '@/components/water-system/water-management-dashboard'
 
 export default function WaterSystemPage() {
-  return <WaterAnalysisDashboard />
+  return <WaterManagementDashboard />
 }
