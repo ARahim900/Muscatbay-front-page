@@ -60,12 +60,12 @@ Your Muscat Bay application now uses a comprehensive, consistent color palette a
 ## 🔧 **How to Apply Consistently Across Your App**
 
 ### **1. Import the Design System:**
-```typescript
+\`\`\`typescript
 import { muscatBayColors, chartColors, gradients } from '@/lib/design-system'
-```
+\`\`\`
 
 ### **2. Use Semantic Colors:**
-```typescript
+\`\`\`typescript
 // Text colors
 style={{ color: muscatBayColors.primary[500] }}  // Main text
 style={{ color: muscatBayColors.secondary[500] }} // Secondary text
@@ -73,16 +73,16 @@ style={{ color: muscatBayColors.secondary[500] }} // Secondary text
 // Background colors
 style={{ background: gradients.primary }}        // Primary gradient
 style={{ background: gradients.accent }}         // Accent gradient
-```
+\`\`\`
 
 ### **3. Chart Colors:**
-```typescript
+\`\`\`typescript
 // Use the chartColors array for consistent chart styling
 chartColors[index % chartColors.length]
-```
+\`\`\`
 
 ### **4. Component Styling:**
-```typescript
+\`\`\`typescript
 // Card backgrounds
 style={{ background: `${muscatBayColors.primary[500]}15` }} // 15% opacity
 
@@ -91,7 +91,7 @@ style={{ borderColor: muscatBayColors.accent[300] }}
 
 // Gradients
 style={{ background: `linear-gradient(135deg, ${muscatBayColors.primary[500]}, ${muscatBayColors.secondary[500]})` }}
-```
+\`\`\`
 
 ---
 
@@ -130,10 +130,10 @@ style={{ background: `linear-gradient(135deg, ${muscatBayColors.primary[500]}, $
 ## 🌟 **Enhanced Features Applied**
 
 ### **Modern Header Design:**
-```typescript
+\`\`\`typescript
 // Gradient header with brand colors
 background: `linear-gradient(90deg, ${muscatBayColors.primary[500]}95 0%, ${muscatBayColors.secondary[500]}95 50%, ${muscatBayColors.accent[500]}95 100%)`
-```
+\`\`\`
 
 ### **Smart KPI Cards:**
 - Each card uses a different color scheme from the palette
@@ -157,7 +157,7 @@ background: `linear-gradient(90deg, ${muscatBayColors.primary[500]}95 0%, ${musc
 
 ## 📊 **Color Palette Visual Reference**
 
-```
+\`\`\`
 Primary Palette:
 🔵 #4E4456 - Main brand (Dark purple-gray)
 🔵 #6C6A81 - Secondary (Medium purple-gray)  
@@ -172,7 +172,7 @@ Usage Examples:
 - Charts: Rotate through all 6 colors
 - Backgrounds: Subtle gradients with low opacity
 - Text: Primary for main text, Secondary for supporting
-```
+\`\`\`
 
 ---
 
@@ -180,7 +180,7 @@ Usage Examples:
 
 ### **1. Update Global Styles:**
 Add the design system to your global CSS:
-```css
+\`\`\`css
 /* Add to globals.css */
 :root {
   --color-primary: #4E4456;
@@ -190,7 +190,7 @@ Add the design system to your global CSS:
   --color-neutral: #BAB4BD;
   --color-support: #9597A4;
 }
-```
+\`\`\`
 
 ### **2. Update Each Module:**
 Apply the same color strategy used in the enhanced electricity system to:

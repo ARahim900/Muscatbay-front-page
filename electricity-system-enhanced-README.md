@@ -84,7 +84,7 @@ I've completely transformed your electricity system dashboard into a modern, sop
 ## 🛠 **How to Use the Enhanced Version**
 
 ### **Option 1: Replace Current Page**
-```bash
+\`\`\`bash
 # Rename current page to backup
 mv app/electricity-system/page.tsx app/electricity-system/page-backup.tsx
 
@@ -94,7 +94,7 @@ mv app/electricity-system/page-enhanced.tsx app/electricity-system/page.tsx
 # Update data import in page.tsx
 # Change: from '@/data/electricity-data'
 # To: from '@/data/electricity-data-enhanced'
-```
+\`\`\`
 
 ### **Option 2: Access Enhanced Version Directly**
 Navigate to: `/electricity-system/page-enhanced` to see the new design alongside your current version.
