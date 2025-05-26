@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muscat Bay Water Management System - Standalone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f7;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4E4456 0%, #7A6B84 100%);
+            color: white;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #8B7A94 0%, #A596AD 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .notice {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            color: #1976d2;
+            padding: 1rem;
+            margin: 2rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .notice strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .integration-info {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .integration-info h2 {
+            color: #4E4456;
+            margin-bottom: 1rem;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-top: 4px solid #4E4456;
+        }
+
+        .feature-card h3 {
+            color: #4E4456;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-card li {
+            padding: 0.25rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .feature-card li:before {
+            content: "✓";
+            color: #4E4456;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>
+            <div class="logo">MB</div>
+            Muscat Bay Water Management System
+        </h1>
+        <p>Comprehensive water distribution monitoring and analytics platform</p>
+    </header>
+
+    <div class="notice">
+        <strong>🎉 Successfully Integrated into Muscat Bay Portal</strong>
+        This water management system has been integrated into the main Muscat Bay dashboard as a React component. 
+        Access the live system at <strong>/water-system</strong> in the main application.
+    </div>
+
+    <div class="container">
+        <div class="integration-info">
+            <h2>📊 System Integration Complete</h2>
+            <p>The comprehensive water management dashboard has been successfully converted from this standalone HTML version into a fully integrated React component within the Muscat Bay front-end portal.</p>
+            
+            <h3>🔧 Technical Implementation</h3>
+            <div class="code-block">
+Location: /app/water-system/page.tsx
+Component: WaterManagementDashboard
+Framework: Next.js 14 with React 18
+Styling: Tailwind CSS
+Type Safety: TypeScript
+            </div>
+
+            <h3>📈 Data Coverage</h3>
+            <ul style="margin-top: 1rem;">
+                <li>🗓️ Historical Data: January 2024 - April 2025 (16 months)</li>
+                <li>🏠 Zone Coverage: 6 zones with 332+ individual meters</li>
+                <li>📊 Real-time Calculations: Stage 1 & 2 loss analysis</li>
+                <li>🎯 Performance Metrics: System efficiency tracking</li>
+                <li>🔍 Detailed Analytics: Zone-wise performance analysis</li>
+            </ul>
+        </div>
+
+        <div class="feature-list">
+            <div class="feature-card">
+                <h3>🌊 System Overview</h3>
+                <ul>
+                    <li>Real-time water supply monitoring</li>
+                    <li>Distribution efficiency tracking</li>
+                    <li>Consumption pattern analysis</li>
+                    <li>Intelligent alert system</li>
+                    <li>Water distribution hierarchy</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>🏘️ Zone Analysis</h3>
+                <ul>
+                    <li>Individual zone performance</li>
+                    <li>Bulk vs individual consumption</li>
+                    <li>Zone-specific loss calculations</li>
+                    <li>Meter-level detailed analysis</li>
+                    <li>Searchable meter database</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>📈 Trend Analysis</h3>
+                <ul>
+                    <li>Historical trend visualization</li>
+                    <li>Monthly comparison charts</li>
+                    <li>System efficiency tracking</li>
+                    <li>Loss breakdown analysis</li>
+                    <li>Performance indicators</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>🏢 Consumer Analytics</h3>
+                <ul>
+                    <li>Top 10 consumer identification</li>
+                    <li>Consumption by category</li>
+                    <li>Usage pattern insights</li>
+                    <li>Consumer type analysis</li>
+                    <li>Percentage distribution</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>⚡ Performance Features</h3>
+                <ul>
+                    <li>Client-side calculations</li>
+                    <li>Responsive design</li>
+                    <li>Interactive visualizations</li>
+                    <li>Real-time metric updates</li>
+                    <li>Mobile optimization</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>🔒 Data Management</h3>
+                <ul>
+                    <li>Comprehensive datasets</li>
+                    <li>Data validation systems</li>
+                    <li>Historical data integrity</li>
+                    <li>Automated calculations</li>
+                    <li>Performance monitoring</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="integration-info" style="margin-top: 2rem;">
+            <h2>🚀 Access Instructions</h2>
+            <p>To access the integrated water management system:</p>
+            <ol style="margin-top: 1rem; margin-left: 2rem;">
+                <li>Navigate to the main Muscat Bay portal</li>
+                <li>Go to <strong>/water-system</strong> in your browser</li>
+                <li>Explore the four main tabs: Overview, Zone Analysis, Trend Analysis, and Top Consumers</li>
+                <li>Use the period selector to view different months</li>
+                <li>Analyze zone-specific performance using the zone selection tools</li>
+            </ol>
+
+            <h3 style="margin-top: 2rem;">📱 Mobile Access</h3>
+            <p>The system is fully responsive and optimized for mobile devices, tablets, and desktop computers.</p>
+
+            <h3 style="margin-top: 1rem;">🔧 Developer Notes</h3>
+            <p>The original HTML dashboard functionality has been preserved and enhanced with React interactivity, TypeScript type safety, and modern UI components.</p>
+        </div>
+    </div>
+
+    <script>
+        console.log('Muscat Bay Water Management System - Standalone Reference');
+        console.log('This system has been integrated into the main portal at /water-system');
+        console.log('For full functionality, please access the integrated React version');
+    </script>
+</body>
+</html>
