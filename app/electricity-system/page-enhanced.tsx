@@ -12,6 +12,13 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { getDashboardStats, RATE_PER_KWH } from '@/data/electricity-data-enhanced'
+import { 
+  MonthlyConsumptionChart, 
+  CategoryDistributionChart, 
+  FacilityTypeChart, 
+  CostAnalysisChart, 
+  EfficiencyMetricsChart 
+} from '@/components/electricity-system/enhanced-charts'
 
 // Modern KPI Card Component with proper context
 function KPICard({ 
@@ -94,19 +101,6 @@ function KPICard({
         </div>
       </CardContent>
     </Card>
-  )
-}
-
-// Enhanced chart component placeholder
-function EnhancedChart({ type, data, className }: { type: string, data: any, className?: string }) {
-  return (
-    <div className={`h-80 w-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-lg flex items-center justify-center ${className}`}>
-      <div className="text-center space-y-2">
-        <Activity className="h-8 w-8 mx-auto text-[#4E4456] opacity-50" />
-        <p className="text-sm text-muted-foreground">Enhanced {type} Chart</p>
-        <p className="text-xs text-muted-foreground">Interactive visualization coming soon</p>
-      </div>
-    </div>
   )
 }
 
@@ -243,37 +237,25 @@ export default function ElectricitySystemEnhanced() {
           />
         </div>
 
-        {/* Main Content Area */}
-        <div className="grid gap-6 lg:grid-cols-3">
-          {/* Charts Section */}
-          <div className="lg:col-span-2 space-y-6">
-            <Card className="border-0 shadow-lg">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="text-lg font-semibold text-[#4E4456]">Monthly Consumption Trend</CardTitle>
-                    <CardDescription>6-month electricity usage pattern across all facilities</CardDescription>
-                  </div>
-                  <Button variant="outline" size="sm">
-                    <Eye className="h-4 w-4 mr-2" />
-                    View Details
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <EnhancedChart type="consumption trend" data={dashboardStats.monthlyTotals} />
-              </CardContent>
-            </Card>
+        {/* Main Charts Section */}
+        <div className="grid gap-6 lg:grid-cols-2">
+          <MonthlyConsumptionChart data={dashboardStats.monthlyTotals} />
+          <CategoryDistributionChart data={dashboardStats.categories} />
+        </div>
 
-            <Card className="border-0 shadow-lg">
-              <CardHeader>
-                <CardTitle className="text-lg font-semibold text-[#4E4456]">Category Distribution</CardTitle>
-                <CardDescription>Consumption breakdown by facility category</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <EnhancedChart type="category distribution" data={dashboardStats.categories} />
-              </CardContent>
-            </Card>
+        {/* Secondary Charts */}
+        <div className="grid gap-6 lg:grid-cols-2">
+          <FacilityTypeChart data={dashboardStats.facilityTypes} />
+          <EfficiencyMetricsChart data={dashboardStats} />
+        </div>
+
+        {/* Top Consumers and Quick Stats */}
+        <div className="grid gap-6 lg:grid-cols-3">
+          <div className="lg:col-span-2">
+            <CostAnalysisChart 
+              monthlyData={dashboardStats.monthlyTotals} 
+              categoryData={dashboardStats.categories} 
+            />
           </div>
 
           {/* Sidebar */}
@@ -467,24 +449,12 @@ export default function ElectricitySystemEnhanced() {
           </TabsContent>
 
           <TabsContent value="analytics" className="space-y-6">
-            <div className="grid gap-6 md:grid-cols-2">
-              <Card className="border-0 shadow-lg">
-                <CardHeader>
-                  <CardTitle className="text-lg font-semibold text-[#4E4456]">Cost Analytics</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <EnhancedChart type="cost analysis" data={dashboardStats} />
-                </CardContent>
-              </Card>
-              
-              <Card className="border-0 shadow-lg">
-                <CardHeader>
-                  <CardTitle className="text-lg font-semibold text-[#4E4456]">Efficiency Metrics</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <EnhancedChart type="efficiency" data={dashboardStats} />
-                </CardContent>
-              </Card>
+            <div className="grid gap-6">
+              <CostAnalysisChart 
+                monthlyData={dashboardStats.monthlyTotals} 
+                categoryData={dashboardStats.categories} 
+              />
+              <EfficiencyMetricsChart data={dashboardStats} />
             </div>
           </TabsContent>
 
