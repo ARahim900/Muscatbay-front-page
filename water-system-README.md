@@ -74,7 +74,7 @@ The Muscat Bay Water Management System is a comprehensive real-time monitoring d
 ## Technical Implementation
 
 ### Architecture
-```
+\`\`\`
 app/water-system/
 ├── page.tsx                           # Main page component
 └── loading.tsx                        # Loading state
@@ -86,7 +86,7 @@ components/water-system/
 ├── zone-details-enhanced.tsx         # Zone-specific analysis
 ├── zone-details.tsx                  # Basic zone details
 └── water-system-showcase.tsx         # System showcase
-```
+\`\`\`
 
 ### Key Technologies
 - **Next.js 14**: App router with server components
