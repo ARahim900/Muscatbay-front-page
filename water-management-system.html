@@ -1067,53 +1067,469 @@ const detailedZoneData = {
             { label: 'Z3-47(2) (Building)', account: '4300012', type: 'Residential (Apart)', 'Apr-25': 1, 'Mar-25': 1, 'Feb-25': 1, 'Jan-25': 1, status: 'active' },
             { label: 'Z3-45(3A) (Building)', account: '4300013', type: 'Residential (Apart)', 'Apr-25': 1, 'Mar-25': 0, 'Feb-25': 4, 'Jan-25': 8, status: 'active' },
             { label: 'Z3-46(2A) (Building)', account: '4300014', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
-            { label: 'Z3-46(6) (Building)', account: '4300015', type: 'Residential (Apart)', 'Apr-25': 5, 'Mar-25': 1, 'Feb-25': 1, 'Jan-25': 3, status: 'active' }
+            { label: 'Z3-46(6) (Building)', account: '4300015', type: 'Residential (Apart)', 'Apr-25': 5, 'Mar-25': 1, 'Feb-25': 1, 'Jan-25': 3, status: 'active' },
+            { label: 'Z3-47(4) (Building)', account: '4300016', type: 'Residential (Apart)', 'Apr-25': 1, 'Mar-25': 0, 'Feb-25': 12, 'Jan-25': 11, status: 'active' },
+            { label: 'Z3-45(5) (Building)', account: '4300017', type: 'Residential (Apart)', 'Apr-25': 2, 'Mar-25': 2, 'Feb-25': 3, 'Jan-25': 5, status: 'active' },
+            { label: 'Z3-47(5) (Building)', account: '4300018', type: 'Residential (Apart)', 'Apr-25': 18, 'Mar-25': 11, 'Feb-25': 12, 'Jan-25': 36, status: 'active' },
+            { label: 'Z3-45(6) (Building)', account: '4300019', type: 'Residential (Apart)', 'Apr-25': 42, 'Mar-25': 32, 'Feb-25': 18, 'Jan-25': 5, status: 'active' },
+            { label: 'Z3-50(4) (Building)', account: '4300021', type: 'Residential (Apart)', 'Apr-25': 17, 'Mar-25': 6, 'Feb-25': 4, 'Jan-25': 6, status: 'active' },
+            { label: 'Z3-74(3) (Building)', account: '4300022', type: 'Residential (Apart)', 'Apr-25': 27, 'Mar-25': 19, 'Feb-25': 19, 'Jan-25': 12, status: 'active' },
+            { label: 'Z3-45(4A) (Building)', account: '4300026', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-50(5) (Building)', account: '4300027', type: 'Residential (Apart)', 'Apr-25': 11, 'Mar-25': 22, 'Feb-25': 10, 'Jan-25': 9, status: 'active' },
+            { label: 'Z3-50(6) (Building)', account: '4300028', type: 'Residential (Apart)', 'Apr-25': 13, 'Mar-25': 18, 'Feb-25': 20, 'Jan-25': 21, status: 'active' },
+            { label: 'Z3-44(1A) (Building)', account: '4300030', type: 'Residential (Apart)', 'Apr-25': 6, 'Mar-25': 10, 'Feb-25': 11, 'Jan-25': 11, status: 'active' },
+            { label: 'Z3-44(1B) (Building)', account: '4300031', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-44(2A) (Building)', account: '4300032', type: 'Residential (Apart)', 'Apr-25': 10, 'Mar-25': 5, 'Feb-25': 3, 'Jan-25': 9, status: 'active' },
+            { label: 'Z3-44(2B) (Building)', account: '4300033', type: 'Residential (Apart)', 'Apr-25': 8, 'Mar-25': 7, 'Feb-25': 7, 'Jan-25': 7, status: 'active' },
+            { label: 'Z3-44(5) (Building)', account: '4300034', type: 'Residential (Apart)', 'Apr-25': 25, 'Mar-25': 38, 'Feb-25': 139, 'Jan-25': 118, status: 'active' },
+            { label: 'Z3-44(6) (Building)', account: '4300035', type: 'Residential (Apart)', 'Apr-25': 37, 'Mar-25': 31, 'Feb-25': 37, 'Jan-25': 34, status: 'active' },
+            { label: 'Z3-75(1) (Building)', account: '4300036', type: 'Residential (Apart)', 'Apr-25': 1, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 1, status: 'active' },
+            { label: 'Z3-75(3) (Building)', account: '4300037', type: 'Residential (Apart)', 'Apr-25': 6, 'Mar-25': 0, 'Feb-25': 7, 'Jan-25': 2, status: 'active' },
+            { label: 'Z3-23 (Villa)', account: '4300038', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-47(3) (Building)', account: '4300039', type: 'Residential (Apart)', 'Apr-25': 17, 'Mar-25': 17, 'Feb-25': 19, 'Jan-25': 18, status: 'active' },
+            { label: 'Z3-48(3) (Building)', account: '4300040', type: 'Residential (Apart)', 'Apr-25': 4, 'Mar-25': 4, 'Feb-25': 5, 'Jan-25': 3, status: 'active' },
+            { label: 'Z3-48(6) (Building)', account: '4300041', type: 'Residential (Apart)', 'Apr-25': 1, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-46(4A) (Building)', account: '4300043', type: 'Residential (Apart)', 'Apr-25': 19, 'Mar-25': 0, 'Feb-25': 1, 'Jan-25': 4, status: 'active' },
+            { label: 'Z3-41 (Villa)', account: '4300044', type: 'Residential (Villa)', 'Apr-25': 26, 'Mar-25': 34, 'Feb-25': 18, 'Jan-25': 13, status: 'active' },
+            { label: 'Z3-74(5) (Building)', account: '4300045', type: 'Residential (Apart)', 'Apr-25': 16, 'Mar-25': 12, 'Feb-25': 7, 'Jan-25': 13, status: 'active' },
+            { label: 'Z3-74(6) (Building)', account: '4300046', type: 'Residential (Apart)', 'Apr-25': 5, 'Mar-25': 4, 'Feb-25': 4, 'Jan-25': 12, status: 'active' },
+            { label: 'Z3-50(3) (Building)', account: '4300047', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 6, 'Feb-25': 13, 'Jan-25': 8, status: 'active' },
+            { label: 'Z3-48(5) (Building)', account: '4300048', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 1, 'Feb-25': 1, 'Jan-25': 2, status: 'inactive' },
+            { label: 'Z3-37 (Villa)', account: '4300049', type: 'Residential (Villa)', 'Apr-25': 28, 'Mar-25': 18, 'Feb-25': 15, 'Jan-25': 26, status: 'active' },
+            { label: 'Z3-43 (Villa)', account: '4300050', type: 'Residential (Villa)', 'Apr-25': 52, 'Mar-25': 46, 'Feb-25': 68, 'Jan-25': 70, status: 'active' },
+            { label: 'Z3-47(6) (Building)', account: '4300051', type: 'Residential (Apart)', 'Apr-25': 17, 'Mar-25': 16, 'Feb-25': 14, 'Jan-25': 29, status: 'active' },
+            { label: 'Z3-31 (Villa)', account: '4300052', type: 'Residential (Villa)', 'Apr-25': 306, 'Mar-25': 30, 'Feb-25': 133, 'Jan-25': 165, status: 'active' },
+            { label: 'Z3-49(5) (Building)', account: '4300053', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 5, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-75(5) (Building)', account: '4300055', type: 'Residential (Apart)', 'Apr-25': 16, 'Mar-25': 12, 'Feb-25': 12, 'Jan-25': 16, status: 'active' },
+            { label: 'Z3-49(6) (Building)', account: '4300061', type: 'Residential (Apart)', 'Apr-25': 27, 'Mar-25': 21, 'Feb-25': 22, 'Jan-25': 25, status: 'active' },
+            { label: 'Z3-75(6) (Building)', account: '4300063', type: 'Residential (Apart)', 'Apr-25': 36, 'Mar-25': 35, 'Feb-25': 32, 'Jan-25': 35, status: 'active' },
+            { label: 'Z3-35 (Villa)', account: '4300075', type: 'Residential (Villa)', 'Apr-25': 74, 'Mar-25': 52, 'Feb-25': 61, 'Jan-25': 65, status: 'active' },
+            { label: 'Z3-40 (Villa)', account: '4300079', type: 'Residential (Villa)', 'Apr-25': 37, 'Mar-25': 37, 'Feb-25': 23, 'Jan-25': 18, status: 'active' },
+            { label: 'Z3-30 (Villa)', account: '4300081', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 4, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-33 (Villa)', account: '4300082', type: 'Residential (Villa)', 'Apr-25': 50, 'Mar-25': 40, 'Feb-25': 45, 'Jan-25': 45, status: 'active' },
+            { label: 'Z3-36 (Villa)', account: '4300084', type: 'Residential (Villa)', 'Apr-25': 83, 'Mar-25': 69, 'Feb-25': 83, 'Jan-25': 81, status: 'active' },
+            { label: 'Z3-32 (Villa)', account: '4300085', type: 'Residential (Villa)', 'Apr-25': 38, 'Mar-25': 33, 'Feb-25': 39, 'Jan-25': 38, status: 'active' },
+            { label: 'Z3-39 (Villa)', account: '4300086', type: 'Residential (Villa)', 'Apr-25': 33, 'Mar-25': 29, 'Feb-25': 36, 'Jan-25': 39, status: 'active' },
+            { label: 'Z3-34 (Villa)', account: '4300087', type: 'Residential (Villa)', 'Apr-25': 20, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-27 (Villa)', account: '4300089', type: 'Residential (Villa)', 'Apr-25': 73, 'Mar-25': 55, 'Feb-25': 32, 'Jan-25': 15, status: 'active' },
+            { label: 'Z3-24 (Villa)', account: '4300091', type: 'Residential (Villa)', 'Apr-25': 101, 'Mar-25': 78, 'Feb-25': 39, 'Jan-25': 18, status: 'active' },
+            { label: 'Z3-25 (Villa)', account: '4300093', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 3, status: 'inactive' },
+            { label: 'Z3-26 (Villa)', account: '4300095', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-29 (Villa)', account: '4300097', type: 'Residential (Villa)', 'Apr-25': 2, 'Mar-25': 3, 'Feb-25': 7, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-28 (Villa)', account: '4300101', type: 'Residential (Villa)', 'Apr-25': 41, 'Mar-25': 30, 'Feb-25': 38, 'Jan-25': 44, status: 'active' },
+            { label: 'Z3-74(1) (Building)', account: '4300106', type: 'Residential (Apart)', 'Apr-25': 1, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 1, status: 'active' },
+            { label: 'Z3-49(1) (Building)', account: '4300107', type: 'Residential (Apart)', 'Apr-25': 9, 'Mar-25': 3, 'Feb-25': 4, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-49(2) (Building)', account: '4300108', type: 'Residential (Apart)', 'Apr-25': 15, 'Mar-25': 12, 'Feb-25': 15, 'Jan-25': 15, status: 'active' },
+            { label: 'Z3-50(1) (Building)', account: '4300109', type: 'Residential (Apart)', 'Apr-25': 6, 'Mar-25': 28, 'Feb-25': 26, 'Jan-25': 22, status: 'active' },
+            { label: 'Z3-45(1A) (Building)', account: '4300110', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 1, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-51(1) (Building)', account: '4300111', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-51(2) (Building)', account: '4300112', type: 'Residential (Apart)', 'Apr-25': 30, 'Mar-25': 31, 'Feb-25': 28, 'Jan-25': 32, status: 'active' },
+            { label: 'Z3-45(2A) (Building)', account: '4300113', type: 'Residential (Apart)', 'Apr-25': 11, 'Mar-25': 9, 'Feb-25': 7, 'Jan-25': 2, status: 'active' },
+            { label: 'Z3-050(2) (Building)', account: '4300114', type: 'Residential (Apart)', 'Apr-25': 3, 'Mar-25': 0, 'Feb-25': 8, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-47(1) (Building)', account: '4300115', type: 'Residential (Apart)', 'Apr-25': 15, 'Mar-25': 10, 'Feb-25': 11, 'Jan-25': 9, status: 'active' },
+            { label: 'Z3-48(1) (Building)', account: '4300117', type: 'Residential (Apart)', 'Apr-25': 5, 'Mar-25': 4, 'Feb-25': 5, 'Jan-25': 3, status: 'active' },
+            { label: 'Z3-74(2) (Building)', account: '4300118', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-51(3) (Building)', account: '4300121', type: 'Residential (Apart)', 'Apr-25': 11, 'Mar-25': 9, 'Feb-25': 10, 'Jan-25': 13, status: 'active' },
+            { label: 'Z3-75(2) (Building)', account: '4300122', type: 'Residential (Apart)', 'Apr-25': 8, 'Mar-25': 9, 'Feb-25': 7, 'Jan-25': 7, status: 'active' },
+            { label: 'Z3-48(2) (Building)', account: '4300123', type: 'Residential (Apart)', 'Apr-25': 2, 'Mar-25': 4, 'Feb-25': 0, 'Jan-25': 3, status: 'active' },
+            { label: 'Z3-74(4) (Building)', account: '4300125', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 2, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-51(4) (Building)', account: '4300127', type: 'Residential (Apart)', 'Apr-25': 9, 'Mar-25': 12, 'Feb-25': 9, 'Jan-25': 11, status: 'active' },
+            { label: 'Z3-051(5) (Building)', account: '4300128', type: 'Residential (Apart)', 'Apr-25': 6, 'Mar-25': 19, 'Feb-25': 5, 'Jan-25': 2, status: 'active' },
+            { label: 'Z3-48(4) (Building)', account: '4300131', type: 'Residential (Apart)', 'Apr-25': 4, 'Mar-25': 5, 'Feb-25': 5, 'Jan-25': 5, status: 'active' },
+            { label: 'Z3-51(6) (Building)', account: '4300134', type: 'Residential (Apart)', 'Apr-25': 6, 'Mar-25': 5, 'Feb-25': 2, 'Jan-25': 8, status: 'active' },
+            { label: 'D 45-Building Common Meter', account: '4300135', type: 'D_Building_Common', 'Apr-25': 0, 'Mar-25': 1, 'Feb-25': 1, 'Jan-25': 0, status: 'active' },
+            { label: 'D 50-Building Common Meter', account: '4300136', type: 'D_Building_Common', 'Apr-25': 1, 'Mar-25': 1, 'Feb-25': 1, 'Jan-25': 1, status: 'active' },
+            { label: 'D 51-Building Common Meter', account: '4300137', type: 'D_Building_Common', 'Apr-25': 1, 'Mar-25': 1, 'Feb-25': 0, 'Jan-25': 1, status: 'active' },
+            { label: 'D 46-Building Common Meter', account: '4300138', type: 'D_Building_Common', 'Apr-25': 0, 'Mar-25': 1, 'Feb-25': 0, 'Jan-25': 1, status: 'active' },
+            { label: 'D 74-Building Common Meter', account: '4300139', type: 'D_Building_Common', 'Apr-25': 2, 'Mar-25': 1, 'Feb-25': 1, 'Jan-25': 0, status: 'active' },
+            { label: 'D 49-Building Common Meter', account: '4300140', type: 'D_Building_Common', 'Apr-25': 1, 'Mar-25': 2, 'Feb-25': 1, 'Jan-25': 0, status: 'active' },
+            { label: 'D 48-Building Common Meter', account: '4300141', type: 'D_Building_Common', 'Apr-25': 1, 'Mar-25': 0, 'Feb-25': 1, 'Jan-25': 0, status: 'active' },
+            { label: 'D 47-Building Common Meter', account: '4300143', type: 'D_Building_Common', 'Apr-25': 2, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 1, status: 'active' },
+            { label: 'D 44-Building Common Meter', account: '4300144', type: 'D_Building_Common', 'Apr-25': 1, 'Mar-25': 0, 'Feb-25': 1, 'Jan-25': 1, status: 'active' },
+            { label: 'D 75-Building Common Meter', account: '4300145', type: 'D_Building_Common', 'Apr-25': 7, 'Mar-25': 3, 'Feb-25': 4, 'Jan-25': 3, status: 'active' },
+            { label: 'Z3-74(3) (Building)', account: '4300322', type: 'Residential (Apart)', 'Apr-25': 20, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'active' }
         ]
     },
     'Zone_03_(B)': {
         name: 'Zone 03B',
+        'Jan-24': { bulk: 2653, individual: 1570, loss: 1083 },
+        'Feb-24': { bulk: 2169, individual: 1492, loss: 677 },
+        'Mar-24': { bulk: 2315, individual: 1565, loss: 750 },
+        'Apr-24': { bulk: 2381, individual: 1681, loss: 700 },
+        'May-24': { bulk: 2634, individual: 1697, loss: 937 },
+        'Jun-24': { bulk: 2932, individual: 1923, loss: 1009 },
+        'Jul-24': { bulk: 3369, individual: 2104, loss: 1265 },
+        'Aug-24': { bulk: 3458, individual: 2147, loss: 1311 },
+        'Sep-24': { bulk: 3742, individual: 1932, loss: 1810 },
+        'Oct-24': { bulk: 2906, individual: 2137, loss: 769 },
+        'Nov-24': { bulk: 2695, individual: 1844, loss: 851 },
+        'Dec-24': { bulk: 3583, individual: 2005, loss: 1578 },
+        'Jan-25': { bulk: 3256, individual: 2063, loss: 1193 },
+        'Feb-25': { bulk: 2962, individual: 1854, loss: 1108 },
+        'Mar-25': { bulk: 3331, individual: 1470, loss: 1861 },
         'Apr-25': { bulk: 2157, individual: 2168, loss: -11 },
         meters: [
-            { label: 'Z3-52(6) (Building)', account: '4300008', type: 'Residential (Apart)', 'Apr-25': 14, status: 'active' },
-            { label: 'Z3-21 (Villa)', account: '4300009', type: 'Residential (Villa)', 'Apr-25': 48, status: 'active' }
+            { label: 'Z3-52(6) (Building)', account: '4300008', type: 'Residential (Apart)', 'Apr-25': 14, 'Mar-25': 9, 'Feb-25': 9, 'Jan-25': 10, status: 'active' },
+            { label: 'Z3-21 (Villa)', account: '4300009', type: 'Residential (Villa)', 'Apr-25': 48, 'Mar-25': 42, 'Feb-25': 53, 'Jan-25': 41, status: 'active' },
+            { label: 'Z3-20 (Villa)', account: '4300020', type: 'Residential (Villa)', 'Apr-25': 3, 'Mar-25': 7, 'Feb-25': 14, 'Jan-25': 12, status: 'active' },
+            { label: 'Z3-13 (Villa)', account: '4300025', type: 'Residential (Villa)', 'Apr-25': 24, 'Mar-25': 18, 'Feb-25': 22, 'Jan-25': 20, status: 'active' },
+            { label: 'Z3-52(4A) (Building)', account: '4300029', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-52(3A) (Building)', account: '4300042', type: 'Residential (Apart)', 'Apr-25': 5, 'Mar-25': 5, 'Feb-25': 9, 'Jan-25': 6, status: 'active' },
+            { label: 'Z3-62(6) (Building)', account: '4300054', type: 'Residential (Apart)', 'Apr-25': 11, 'Mar-25': 17, 'Feb-25': 19, 'Jan-25': 39, status: 'active' },
+            { label: 'Z3-52(5) (Building)', account: '4300056', type: 'Residential (Apart)', 'Apr-25': 7, 'Mar-25': 4, 'Feb-25': 3, 'Jan-25': 5, status: 'active' },
+            { label: 'Z3-15 (Villa)', account: '4300057', type: 'Residential (Villa)', 'Apr-25': 47, 'Mar-25': 35, 'Feb-25': 41, 'Jan-25': 40, status: 'active' },
+            { label: 'Z3-14 (Villa)', account: '4300060', type: 'Residential (Villa)', 'Apr-25': 43, 'Mar-25': 30, 'Feb-25': 102, 'Jan-25': 166, status: 'active' },
+            { label: 'Z3-62(1) (Building)', account: '4300062', type: 'Residential (Apart)', 'Apr-25': 10, 'Mar-25': 15, 'Feb-25': 1, 'Jan-25': 4, status: 'active' },
+            { label: 'Z3-53(4B) (Building)', account: '4300064', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-60(1B) (Building)', account: '4300065', type: 'Residential (Apart)', 'Apr-25': 14, 'Mar-25': 9, 'Feb-25': 14, 'Jan-25': 14, status: 'active' },
+            { label: 'Z3-59(4B) (Building)', account: '4300066', type: 'Residential (Apart)', 'Apr-25': 1, 'Mar-25': 0, 'Feb-25': 3, 'Jan-25': 3, status: 'active' },
+            { label: 'Z3-60(3B) (Building)', account: '4300067', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 2, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-60(4B) (Building)', account: '4300068', type: 'Residential (Apart)', 'Apr-25': 6, 'Mar-25': 5, 'Feb-25': 3, 'Jan-25': 1, status: 'active' },
+            { label: 'Z3-52(2A) (Building)', account: '4300069', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-58(1B) (Building)', account: '4300070', type: 'Residential (Apart)', 'Apr-25': 2, 'Mar-25': 1, 'Feb-25': 2, 'Jan-25': 2, status: 'active' },
+            { label: 'Z3-55(1B) (Building)', account: '4300071', type: 'Residential (Apart)', 'Apr-25': 3, 'Mar-25': 3, 'Feb-25': 4, 'Jan-25': 3, status: 'active' },
+            { label: 'Z3-60(2B) (Building)', account: '4300072', type: 'Residential (Apart)', 'Apr-25': 11, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 3, status: 'active' },
+            { label: 'Z3-59(3A) (Building)', account: '4300073', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-53(6) (Building)', account: '4300074', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-12 (Villa)', account: '4300076', type: 'Residential (Villa)', 'Apr-25': 181, 'Mar-25': 54, 'Feb-25': 59, 'Jan-25': 73, status: 'active' },
+            { label: 'Z3-11 (Villa)', account: '4300077', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-4 (Villa)', account: '4300078', type: 'Residential (Villa)', 'Apr-25': 23, 'Mar-25': 22, 'Feb-25': 55, 'Jan-25': 90, status: 'active' },
+            { label: 'Z3-17 (Villa)', account: '4300080', type: 'Residential (Villa)', 'Apr-25': 13, 'Mar-25': 5, 'Feb-25': 8, 'Jan-25': 19, status: 'active' },
+            { label: 'Z3-18 (Villa)', account: '4300083', type: 'Residential (Villa)', 'Apr-25': 39, 'Mar-25': 33, 'Feb-25': 36, 'Jan-25': 36, status: 'active' },
+            { label: 'Z3-3 (Villa)', account: '4300088', type: 'Residential (Villa)', 'Apr-25': 73, 'Mar-25': 63, 'Feb-25': 59, 'Jan-25': 66, status: 'active' },
+            { label: 'Z3-7 (Villa)', account: '4300090', type: 'Residential (Villa)', 'Apr-25': 57, 'Mar-25': 46, 'Feb-25': 45, 'Jan-25': 38, status: 'active' },
+            { label: 'Z3-10 (Villa)', account: '4300092', type: 'Residential (Villa)', 'Apr-25': 101, 'Mar-25': 62, 'Feb-25': 81, 'Jan-25': 78, status: 'active' },
+            { label: 'Z3-1 (Villa)', account: '4300094', type: 'Residential (Villa)', 'Apr-25': 7, 'Mar-25': 5, 'Feb-25': 4, 'Jan-25': 4, status: 'active' },
+            { label: 'Z3-9 (Villa)', account: '4300096', type: 'Residential (Villa)', 'Apr-25': 60, 'Mar-25': 55, 'Feb-25': 49, 'Jan-25': 67, status: 'active' },
+            { label: 'Z3-2 (Villa)', account: '4300098', type: 'Residential (Villa)', 'Apr-25': 7, 'Mar-25': 8, 'Feb-25': 6, 'Jan-25': 6, status: 'active' },
+            { label: 'Z3-19 (Villa)', account: '4300099', type: 'Residential (Villa)', 'Apr-25': 108, 'Mar-25': 26, 'Feb-25': 6, 'Jan-25': 138, status: 'active' },
+            { label: 'Z3-6 (Villa)', account: '4300100', type: 'Residential (Villa)', 'Apr-25': 36, 'Mar-25': 38, 'Feb-25': 33, 'Jan-25': 31, status: 'active' },
+            { label: 'Z3-22 (Villa)', account: '4300102', type: 'Residential (Villa)', 'Apr-25': 31, 'Mar-25': 53, 'Feb-25': 14, 'Jan-25': 32, status: 'active' },
+            { label: 'Z3-16 (Villa)', account: '4300103', type: 'Residential (Villa)', 'Apr-25': 5, 'Mar-25': 2, 'Feb-25': 28, 'Jan-25': 1, status: 'active' },
+            { label: 'Z3-5 (Villa)', account: '4300104', type: 'Residential (Villa)', 'Apr-25': 55, 'Mar-25': 42, 'Feb-25': 51, 'Jan-25': 40, status: 'active' },
+            { label: 'Z3-8 (Villa)', account: '4300105', type: 'Residential (Villa)', 'Apr-25': 358, 'Mar-25': 196, 'Feb-25': 106, 'Jan-25': 83, status: 'active' },
+            { label: 'Z3-52(1A) (Building)', account: '4300116', type: 'Residential (Apart)', 'Apr-25': 8, 'Mar-25': 5, 'Feb-25': 14, 'Jan-25': 19, status: 'active' },
+            { label: 'Z3-62(2) (Building)', account: '4300119', type: 'Residential (Apart)', 'Apr-25': 11, 'Mar-25': 8, 'Feb-25': 10, 'Jan-25': 7, status: 'active' },
+            { label: 'Z3-58(5) (Building)', account: '4300120', type: 'Residential (Apart)', 'Apr-25': 30, 'Mar-25': 32, 'Feb-25': 23, 'Jan-25': 29, status: 'active' },
+            { label: 'Z3-62(3) (Building)', account: '4300124', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'D 52-Building Common Meter', account: '4300126', type: 'D_Building_Common', 'Apr-25': 4, 'Mar-25': 2, 'Feb-25': 1, 'Jan-25': 1, status: 'active' },
+            { label: 'Z3-62(4) (Building)', account: '4300129', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-58(3B) (Building)', account: '4300130', type: 'Residential (Apart)', 'Apr-25': 29, 'Mar-25': 3, 'Feb-25': 6, 'Jan-25': 6, status: 'active' },
+            { label: 'Z3-058(4B) (Building)', account: '4300132', type: 'Residential (Apart)', 'Apr-25': 6, 'Mar-25': 4, 'Feb-25': 8, 'Jan-25': 9, status: 'active' },
+            { label: 'Z3-62(5) (Building)', account: '4300133', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'D 62-Building Common Meter', account: '4300142', type: 'D_Building_Common', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'D 53-Building Common Meter', account: '4300201', type: 'D_Building_Common', 'Apr-25': 2, 'Mar-25': 7, 'Feb-25': 1, 'Jan-25': 0, status: 'active' },
+            { label: 'D 54-Building Common Meter', account: '4300202', type: 'D_Building_Common', 'Apr-25': 3, 'Mar-25': 1, 'Feb-25': 1, 'Jan-25': 0, status: 'active' },
+            { label: 'D 55-Building Common Meter', account: '4300203', type: 'D_Building_Common', 'Apr-25': 3, 'Mar-25': 2, 'Feb-25': 1, 'Jan-25': 1, status: 'active' },
+            { label: 'D 56-Building Common Meter', account: '4300204', type: 'D_Building_Common', 'Apr-25': 3, 'Mar-25': 8, 'Feb-25': 2, 'Jan-25': 1, status: 'active' },
+            { label: 'D 57-Building Common Meter', account: '4300205', type: 'D_Building_Common', 'Apr-25': 7, 'Mar-25': 4, 'Feb-25': 1, 'Jan-25': 2, status: 'active' },
+            { label: 'D 58-Building Common Meter', account: '4300206', type: 'D_Building_Common', 'Apr-25': 3, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 1, status: 'active' },
+            { label: 'D 59-Building Common Meter', account: '4300207', type: 'D_Building_Common', 'Apr-25': 1, 'Mar-25': 1, 'Feb-25': 0, 'Jan-25': 1, status: 'active' },
+            { label: 'D 60-Building Common Meter', account: '4300208', type: 'D_Building_Common', 'Apr-25': 1, 'Mar-25': 0, 'Feb-25': 1, 'Jan-25': 1, status: 'active' },
+            { label: 'D 61-Building Common Meter', account: '4300209', type: 'D_Building_Common', 'Apr-25': 2, 'Mar-25': 1, 'Feb-25': 0, 'Jan-25': 1, status: 'active' },
+            { label: 'Z3-53(1A) (Building)', account: '4300210', type: 'Residential (Apart)', 'Apr-25': 12, 'Mar-25': 10, 'Feb-25': 9, 'Jan-25': 8, status: 'active' },
+            { label: 'Z3-53(1B) (Building)', account: '4300211', type: 'Residential (Apart)', 'Apr-25': 8, 'Mar-25': 6, 'Feb-25': 8, 'Jan-25': 6, status: 'active' },
+            { label: 'Z3-53(2A) (Building)', account: '4300212', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-53(2B) (Building)', account: '4300213', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-53(3A) (Building)', account: '4300214', type: 'Residential (Apart)', 'Apr-25': 6, 'Mar-25': 0, 'Feb-25': 1, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-53(3B) (Building)', account: '4300215', type: 'Residential (Apart)', 'Apr-25': 6, 'Mar-25': 1, 'Feb-25': 3, 'Jan-25': 1, status: 'active' },
+            { label: 'Z3-53(4A) (Building)', account: '4300216', type: 'Residential (Apart)', 'Apr-25': 5, 'Mar-25': 0, 'Feb-25': 5, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-53(5) (Building)', account: '4300217', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 1, 'Feb-25': 1, 'Jan-25': 2, status: 'active' },
+            { label: 'Z3-54(1A) (Building)', account: '4300218', type: 'Residential (Apart)', 'Apr-25': 13, 'Mar-25': 8, 'Feb-25': 12, 'Jan-25': 11, status: 'active' },
+            { label: 'Z3-54(1B) (Building)', account: '4300219', type: 'Residential (Apart)', 'Apr-25': 6, 'Mar-25': 5, 'Feb-25': 1, 'Jan-25': 1, status: 'active' },
+            { label: 'Z3-54(2A) (Building)', account: '4300220', type: 'Residential (Apart)', 'Apr-25': 1, 'Mar-25': 3, 'Feb-25': 3, 'Jan-25': 3, status: 'active' },
+            { label: 'Z3-54(2B) (Building)', account: '4300221', type: 'Residential (Apart)', 'Apr-25': 14, 'Mar-25': 19, 'Feb-25': 9, 'Jan-25': 20, status: 'active' },
+            { label: 'Z3-54(3A) (Building)', account: '4300222', type: 'Residential (Apart)', 'Apr-25': 8, 'Mar-25': 3, 'Feb-25': 8, 'Jan-25': 8, status: 'active' },
+            { label: 'Z3-54(3B) (Building)', account: '4300223', type: 'Residential (Apart)', 'Apr-25': 1, 'Mar-25': 0, 'Feb-25': 1, 'Jan-25': 1, status: 'active' },
+            { label: 'Z3-54(4A) (Building)', account: '4300224', type: 'Residential (Apart)', 'Apr-25': 14, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-54(4B) (Building)', account: '4300225', type: 'Residential (Apart)', 'Apr-25': 2, 'Mar-25': 1, 'Feb-25': 0, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-54(5) (Building)', account: '4300226', type: 'Residential (Apart)', 'Apr-25': 19, 'Mar-25': 11, 'Feb-25': 18, 'Jan-25': 15, status: 'active' },
+            { label: 'Z3-54(6) (Building)', account: '4300227', type: 'Residential (Apart)', 'Apr-25': 23, 'Mar-25': 4, 'Feb-25': 4, 'Jan-25': 5, status: 'active' },
+            { label: 'Z3-55(1A) (Building)', account: '4300228', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-55(2A) (Building)', account: '4300229', type: 'Residential (Apart)', 'Apr-25': 15, 'Mar-25': 5, 'Feb-25': 24, 'Jan-25': 23, status: 'active' },
+            { label: 'Z3-55(2B) (Building)', account: '4300230', type: 'Residential (Apart)', 'Apr-25': 5, 'Mar-25': 5, 'Feb-25': 4, 'Jan-25': 3, status: 'active' },
+            { label: 'Z3-55(3A) (Building)', account: '4300231', type: 'Residential (Apart)', 'Apr-25': 10, 'Mar-25': 4, 'Feb-25': 8, 'Jan-25': 17, status: 'active' },
+            { label: 'Z3-55(3B) (Building)', account: '4300232', type: 'Residential (Apart)', 'Apr-25': 7, 'Mar-25': 5, 'Feb-25': 3, 'Jan-25': 7, status: 'active' },
+            { label: 'Z3-55(4A) (Building)', account: '4300233', type: 'Residential (Apart)', 'Apr-25': 9, 'Mar-25': 7, 'Feb-25': 7, 'Jan-25': 4, status: 'active' },
+            { label: 'Z3-55(4B) (Building)', account: '4300234', type: 'Residential (Apart)', 'Apr-25': 5, 'Mar-25': 5, 'Feb-25': 5, 'Jan-25': 6, status: 'active' },
+            { label: 'Z3-55(5) (Building)', account: '4300235', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 1, 'Feb-25': 1, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-55(6) (Building)', account: '4300236', type: 'Residential (Apart)', 'Apr-25': 129, 'Mar-25': 68, 'Feb-25': 5, 'Jan-25': 7, status: 'active' },
+            { label: 'Z3-56(1A) (Building)', account: '4300237', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 50, status: 'inactive' },
+            { label: 'Z3-56(1B) (Building)', account: '4300238', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 1, status: 'inactive' },
+            { label: 'Z3-56(2A) (Building)', account: '4300239', type: 'Residential (Apart)', 'Apr-25': 4, 'Mar-25': 0, 'Feb-25': 7, 'Jan-25': 2, status: 'active' },
+            { label: 'Z3-56(2B) (Building)', account: '4300240', type: 'Residential (Apart)', 'Apr-25': 11, 'Mar-25': 8, 'Feb-25': 1, 'Jan-25': 5, status: 'active' },
+            { label: 'Z3-56(3A) (Building)', account: '4300241', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-56(3B) (Building)', account: '4300242', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 1, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-56(4A) (Building)', account: '4300243', type: 'Residential (Apart)', 'Apr-25': 3, 'Mar-25': 4, 'Feb-25': 0, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-56(4B) (Building)', account: '4300244', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 7, status: 'inactive' },
+            { label: 'Z3-56(5) (Building)', account: '4300245', type: 'Residential (Apart)', 'Apr-25': 1, 'Mar-25': 0, 'Feb-25': 2, 'Jan-25': 1, status: 'active' },
+            { label: 'Z3-56(6) (Building)', account: '4300246', type: 'Residential (Apart)', 'Apr-25': 3, 'Mar-25': 17, 'Feb-25': 3, 'Jan-25': 14, status: 'active' },
+            { label: 'Z3-57(1A) (Building)', account: '4300247', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 8, 'Jan-25': 2, status: 'inactive' },
+            { label: 'Z3-57(1B) (Building)', account: '4300248', type: 'Residential (Apart)', 'Apr-25': 1, 'Mar-25': 0, 'Feb-25': 1, 'Jan-25': 3, status: 'active' },
+            { label: 'Z3-57(2A) (Building)', account: '4300249', type: 'Residential (Apart)', 'Apr-25': 4, 'Mar-25': 5, 'Feb-25': 5, 'Jan-25': 4, status: 'active' },
+            { label: 'Z3-57(2B) (Building)', account: '4300250', type: 'Residential (Apart)', 'Apr-25': 8, 'Mar-25': 5, 'Feb-25': 1, 'Jan-25': 1, status: 'active' },
+            { label: 'Z3-57(3A) (Building)', account: '4300251', type: 'Residential (Apart)', 'Apr-25': 5, 'Mar-25': 5, 'Feb-25': 4, 'Jan-25': 6, status: 'active' },
+            { label: 'Z3-57(3B) (Building)', account: '4300252', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 1, 'Feb-25': 0, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-57(4A) (Building)', account: '4300253', type: 'Residential (Apart)', 'Apr-25': 1, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-57(4B) (Building)', account: '4300254', type: 'Residential (Apart)', 'Apr-25': 3, 'Mar-25': 0, 'Feb-25': 3, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-57(5) (Building)', account: '4300255', type: 'Residential (Apart)', 'Apr-25': 21, 'Mar-25': 7, 'Feb-25': 14, 'Jan-25': 17, status: 'active' },
+            { label: 'Z3-57(6) (Building)', account: '4300256', type: 'Residential (Apart)', 'Apr-25': 14, 'Mar-25': 22, 'Feb-25': 26, 'Jan-25': 10, status: 'active' },
+            { label: 'Z3-58(1A) (Building)', account: '4300257', type: 'Residential (Apart)', 'Apr-25': 4, 'Mar-25': 4, 'Feb-25': 2, 'Jan-25': 3, status: 'active' },
+            { label: 'Z3-58(2A) (Building)', account: '4300258', type: 'Residential (Apart)', 'Apr-25': 5, 'Mar-25': 4, 'Feb-25': 0, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-58(2B) (Building)', account: '4300259', type: 'Residential (Apart)', 'Apr-25': 9, 'Mar-25': 1, 'Feb-25': 5, 'Jan-25': 5, status: 'active' },
+            { label: 'Z3-58(3A) (Building)', account: '4300260', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-58(4A) (Building)', account: '4300261', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 1, 'Feb-25': 0, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-58(6) (Building)', account: '4300262', type: 'Residential (Apart)', 'Apr-25': 9, 'Mar-25': 3, 'Feb-25': 3, 'Jan-25': 2, status: 'active' },
+            { label: 'Z3-59(1A) (Building)', account: '4300263', type: 'Residential (Apart)', 'Apr-25': 5, 'Mar-25': 4, 'Feb-25': 7, 'Jan-25': 7, status: 'active' },
+            { label: 'Z3-59(1B) (Building)', account: '4300264', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 1, 'Feb-25': 4, 'Jan-25': 2, status: 'active' },
+            { label: 'Z3-59(2A) (Building)', account: '4300265', type: 'Residential (Apart)', 'Apr-25': 14, 'Mar-25': 14, 'Feb-25': 13, 'Jan-25': 9, status: 'active' },
+            { label: 'Z3-59(2B) (Building)', account: '4300266', type: 'Residential (Apart)', 'Apr-25': 16, 'Mar-25': 10, 'Feb-25': 15, 'Jan-25': 13, status: 'active' },
+            { label: 'Z3-59(3B) (Building)', account: '4300267', type: 'Residential (Apart)', 'Apr-25': 3, 'Mar-25': 3, 'Feb-25': 4, 'Jan-25': 1, status: 'active' },
+            { label: 'Z3-59(4A) (Building)', account: '4300268', type: 'Residential (Apart)', 'Apr-25': 7, 'Mar-25': 6, 'Feb-25': 8, 'Jan-25': 10, status: 'active' },
+            { label: 'Z3-59(5) (Building)', account: '4300269', type: 'Residential (Apart)', 'Apr-25': 11, 'Mar-25': 7, 'Feb-25': 3, 'Jan-25': 12, status: 'active' },
+            { label: 'Z3-59(6) (Building)', account: '4300270', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 1, 'Feb-25': 1, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-60(1A) (Building)', account: '4300271', type: 'Residential (Apart)', 'Apr-25': 6, 'Mar-25': 6, 'Feb-25': 7, 'Jan-25': 3, status: 'active' },
+            { label: 'Z3-60(2A) (Building)', account: '4300272', type: 'Residential (Apart)', 'Apr-25': 3, 'Mar-25': 3, 'Feb-25': 4, 'Jan-25': 4, status: 'active' },
+            { label: 'Z3-60(3A) (Building)', account: '4300273', type: 'Residential (Apart)', 'Apr-25': 10, 'Mar-25': 15, 'Feb-25': 10, 'Jan-25': 5, status: 'active' },
+            { label: 'Z3-60(4A) (Building)', account: '4300274', type: 'Residential (Apart)', 'Apr-25': 5, 'Mar-25': 5, 'Feb-25': 5, 'Jan-25': 6, status: 'active' },
+            { label: 'Z3-60(5) (Building)', account: '4300275', type: 'Residential (Apart)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z3-60(6) (Building)', account: '4300276', type: 'Residential (Apart)', 'Apr-25': 49, 'Mar-25': 39, 'Feb-25': 38, 'Jan-25': 20, status: 'active' },
+            { label: 'Z3-61(1A) (Building)', account: '4300277', type: 'Residential (Apart)', 'Apr-25': 3, 'Mar-25': 3, 'Feb-25': 0, 'Jan-25': 2, status: 'active' },
+            { label: 'Z3-61(1B) (Building)', account: '4300278', type: 'Residential (Apart)', 'Apr-25': 9, 'Mar-25': 2, 'Feb-25': 9, 'Jan-25': 9, status: 'active' },
+            { label: 'Z3-61(2A) (Building)', account: '4300279', type: 'Residential (Apart)', 'Apr-25': 11, 'Mar-25': 11, 'Feb-25': 0, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-61(2B) (Building)', account: '4300280', type: 'Residential (Apart)', 'Apr-25': 1, 'Mar-25': 0, 'Feb-25': 1, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-61(3A) (Building)', account: '4300281', type: 'Residential (Apart)', 'Apr-25': 23, 'Mar-25': 19, 'Feb-25': 7, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-61(3B) (Building)', account: '4300282', type: 'Residential (Apart)', 'Apr-25': 5, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'active' },
+            { label: 'Z3-61(4A) (Building)', account: '4300283', type: 'Residential (Apart)', 'Apr-25': 9, 'Mar-25': 5, 'Feb-25': 11, 'Jan-25': 6, status: 'active' },
+            { label: 'Z3-61(4B) (Building)', account: '4300284', type: 'Residential (Apart)', 'Apr-25': 4, 'Mar-25': 8, 'Feb-25': 5, 'Jan-25': 2, status: 'active' },
+            { label: 'Z3-61(5) (Building)', account: '4300285', type: 'Residential (Apart)', 'Apr-25': 2, 'Mar-25': 1, 'Feb-25': 0, 'Jan-25': 6, status: 'active' },
+            { label: 'Z3-61(6) (Building)', account: '4300286', type: 'Residential (Apart)', 'Apr-25': 17, 'Mar-25': 17, 'Feb-25': 16, 'Jan-25': 16, status: 'active' },
+            { label: 'Irrigation Tank 02 (Z03)', account: '4300320', type: 'IRR_Services', 'Apr-25': 15, 'Mar-25': 43, 'Feb-25': 47, 'Jan-25': 49, status: 'active' }
         ]
     },
     'Zone_05': {
         name: 'Zone 05',
+        'Jan-24': { bulk: 4286, individual: 2081, loss: 2205 },
+        'Feb-24': { bulk: 3897, individual: 1652, loss: 2245 },
+        'Mar-24': { bulk: 4127, individual: 1480, loss: 2647 },
+        'Apr-24': { bulk: 4911, individual: 1896, loss: 3015 },
+        'May-24': { bulk: 2639, individual: 1400, loss: 1239 },
+        'Jun-24': { bulk: 4992, individual: 2147, loss: 2845 },
+        'Jul-24': { bulk: 5305, individual: 2444, loss: 2861 },
+        'Aug-24': { bulk: 4039, individual: 2150, loss: 1889 },
+        'Sep-24': { bulk: 2736, individual: 1669, loss: 1067 },
+        'Oct-24': { bulk: 3383, individual: 2021, loss: 1362 },
+        'Nov-24': { bulk: 1438, individual: 1564, loss: -126 },
+        'Dec-24': { bulk: 3788, individual: 1841, loss: 1947 },
+        'Jan-25': { bulk: 4267, individual: 1827, loss: 2440 },
+        'Feb-25': { bulk: 4231, individual: 1864, loss: 2367 },
+        'Mar-25': { bulk: 3862, individual: 1184, loss: 2678 },
         'Apr-25': { bulk: 3737, individual: 1625, loss: 2112 },
         meters: [
-            { label: 'Z5-17', account: '4300001', type: 'Residential (Villa)', 'Apr-25': 90, status: 'active' },
-            { label: 'Z5-13', account: '4300058', type: 'Residential (Villa)', 'Apr-25': 120, status: 'active' }
+            { label: 'Z5-17', account: '4300001', type: 'Residential (Villa)', 'Apr-25': 90, 'Mar-25': 81, 'Feb-25': 80, 'Jan-25': 112, status: 'active' },
+            { label: 'Z5-13', account: '4300058', type: 'Residential (Villa)', 'Apr-25': 120, 'Mar-25': 89, 'Feb-25': 106, 'Jan-25': 72, status: 'active' },
+            { label: 'Z5-14', account: '4300059', type: 'Residential (Villa)', 'Apr-25': 93, 'Mar-25': 77, 'Feb-25': 93, 'Jan-25': 71, status: 'active' },
+            { label: 'Z5-5', account: '4300146', type: 'Residential (Villa)', 'Apr-25': 5, 'Mar-25': 2, 'Feb-25': 6, 'Jan-25': 3, status: 'active' },
+            { label: 'Z5-30', account: '4300147', type: 'Residential (Villa)', 'Apr-25': 113, 'Mar-25': 71, 'Feb-25': 87, 'Jan-25': 65, status: 'active' },
+            { label: 'Z5-2', account: '4300148', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z5-10', account: '4300149', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 37, status: 'inactive' },
+            { label: 'Z5-4', account: '4300150', type: 'Residential (Villa)', 'Apr-25': 49, 'Mar-25': 35, 'Feb-25': 98, 'Jan-25': 81, status: 'active' },
+            { label: 'Z5-6', account: '4300151', type: 'Residential (Villa)', 'Apr-25': 5, 'Mar-25': 10, 'Feb-25': 3, 'Jan-25': 6, status: 'active' },
+            { label: 'Z5 020', account: '4300152', type: 'Residential (Villa)', 'Apr-25': 164, 'Mar-25': 147, 'Feb-25': 30, 'Jan-25': 25, status: 'active' },
+            { label: 'Z5-23', account: '4300153', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 19, 'Feb-25': 22, 'Jan-25': 0, status: 'active' },
+            { label: 'Z5-15', account: '4300154', type: 'Residential (Villa)', 'Apr-25': 23, 'Mar-25': 16, 'Feb-25': 19, 'Jan-25': 35, status: 'active' },
+            { label: 'Z5-9', account: '4300155', type: 'Residential (Villa)', 'Apr-25': 56, 'Mar-25': 40, 'Feb-25': 49, 'Jan-25': 38, status: 'active' },
+            { label: 'Z5-26', account: '4300156', type: 'Residential (Villa)', 'Apr-25': 69, 'Mar-25': 16, 'Feb-25': 41, 'Jan-25': 61, status: 'active' },
+            { label: 'Z5-25', account: '4300157', type: 'Residential (Villa)', 'Apr-25': 71, 'Mar-25': 10, 'Feb-25': 24, 'Jan-25': 37, status: 'active' },
+            { label: 'Z5-31', account: '4300158', type: 'Residential (Villa)', 'Apr-25': 16, 'Mar-25': 14, 'Feb-25': 24, 'Jan-25': 33, status: 'active' },
+            { label: 'Z5-33', account: '4300159', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 24, 'Feb-25': 0, 'Jan-25': 2, status: 'active' },
+            { label: 'Z5-29', account: '4300160', type: 'Residential (Villa)', 'Apr-25': 20, 'Mar-25': 21, 'Feb-25': 66, 'Jan-25': 49, status: 'active' },
+            { label: 'Z5-28', account: '4300161', type: 'Residential (Villa)', 'Apr-25': 8, 'Mar-25': 9, 'Feb-25': 21, 'Jan-25': 50, status: 'active' },
+            { label: 'Z5-32', account: '4300162', type: 'Residential (Villa)', 'Apr-25': 72, 'Mar-25': 71, 'Feb-25': 119, 'Jan-25': 59, status: 'active' },
+            { label: 'Z5-22', account: '4300163', type: 'Residential (Villa)', 'Apr-25': 243, 'Mar-25': 186, 'Feb-25': 40, 'Jan-25': 15, status: 'active' },
+            { label: 'Z5-7', account: '4300164', type: 'Residential (Villa)', 'Apr-25': 7, 'Mar-25': 14, 'Feb-25': 26, 'Jan-25': 0, status: 'active' },
+            { label: 'Z5-27', account: '4300165', type: 'Residential (Villa)', 'Apr-25': 12, 'Mar-25': 19, 'Feb-25': 13, 'Jan-25': 36, status: 'active' },
+            { label: 'Z5-12', account: '4300166', type: 'Residential (Villa)', 'Apr-25': 66, 'Mar-25': 40, 'Feb-25': 47, 'Jan-25': 44, status: 'active' },
+            { label: 'Z5 024', account: '4300167', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 1, 'Jan-25': 68, status: 'inactive' },
+            { label: 'Z5 016', account: '4300168', type: 'Residential (Villa)', 'Apr-25': 51, 'Mar-25': 37, 'Feb-25': 29, 'Jan-25': 27, status: 'active' },
+            { label: 'Z5-21', account: '4300169', type: 'Residential (Villa)', 'Apr-25': 58, 'Mar-25': 34, 'Feb-25': 22, 'Jan-25': 25, status: 'active' },
+            { label: 'Z5-3', account: '4300170', type: 'Residential (Villa)', 'Apr-25': 100, 'Mar-25': 67, 'Feb-25': 86, 'Jan-25': 149, status: 'active' },
+            { label: 'Z5 019', account: '4300171', type: 'Residential (Villa)', 'Apr-25': 2, 'Mar-25': 6, 'Feb-25': 7, 'Jan-25': 5, status: 'active' },
+            { label: 'Z5-1', account: '4300172', type: 'Residential (Villa)', 'Apr-25': 5, 'Mar-25': 4, 'Feb-25': 5, 'Jan-25': 5, status: 'active' },
+            { label: 'Z5-11', account: '4300173', type: 'Residential (Villa)', 'Apr-25': 3, 'Mar-25': 3, 'Feb-25': 45, 'Jan-25': 30, status: 'active' },
+            { label: 'Z5-18', account: '4300174', type: 'Residential (Villa)', 'Apr-25': 37, 'Mar-25': 11, 'Feb-25': 12, 'Jan-25': 8, status: 'active' },
+            { label: 'Z5-8', account: '4300175', type: 'Residential (Villa)', 'Apr-25': 67, 'Mar-25': 11, 'Feb-25': 12, 'Jan-25': 6, status: 'active' },
+            { label: 'Irrigation Tank 03 (Z05)', account: '4300321', type: 'IRR_Services', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' }
         ]
     },
     'Zone_08': {
         name: 'Zone 08',
+        'Jan-24': { bulk: 2170, individual: 1415, loss: 755 },
+        'Feb-24': { bulk: 1825, individual: 1150, loss: 675 },
+        'Mar-24': { bulk: 2021, individual: 1430, loss: 591 },
+        'Apr-24': { bulk: 2753, individual: 2010, loss: 743 },
+        'May-24': { bulk: 2722, individual: 1651, loss: 1071 },
+        'Jun-24': { bulk: 3193, individual: 2062, loss: 1131 },
+        'Jul-24': { bulk: 3639, individual: 2301, loss: 1338 },
+        'Aug-24': { bulk: 3957, individual: 2675, loss: 1282 },
+        'Sep-24': { bulk: 3947, individual: 2388, loss: 1559 },
+        'Oct-24': { bulk: 4296, individual: 2448, loss: 1848 },
+        'Nov-24': { bulk: 3569, individual: 2238, loss: 1331 },
+        'Dec-24': { bulk: 3018, individual: 1982, loss: 1036 },
+        'Jan-25': { bulk: 1547, individual: 1349, loss: 198 },
+        'Feb-25': { bulk: 1498, individual: 1275, loss: 223 },
+        'Mar-25': { bulk: 2605, individual: 2356, loss: 249 },
         'Apr-25': { bulk: 3203, individual: 1053, loss: 2150 },
         meters: [
-            { label: 'Z8-12', account: '4300196', type: 'Residential (Villa)', 'Apr-25': 267, status: 'active' },
-            { label: 'Z8-5', account: '4300287', type: 'Residential (Villa)', 'Apr-25': 336, status: 'active' }
+            { label: 'Z8-11', account: '4300023', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 1, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z8-13', account: '4300024', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z8-1', account: '4300188', type: 'Residential (Villa)', 'Apr-25': 16, 'Mar-25': 3, 'Feb-25': 2, 'Jan-25': 1, status: 'active' },
+            { label: 'Z8-2', account: '4300189', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z8-3', account: '4300190', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z8-4', account: '4300191', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z8-6', account: '4300192', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 1, status: 'inactive' },
+            { label: 'Z8-7', account: '4300193', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z8-8', account: '4300194', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z8-10', account: '4300195', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z8-12', account: '4300196', type: 'Residential (Villa)', 'Apr-25': 267, 'Mar-25': 249, 'Feb-25': 192, 'Jan-25': 236, status: 'active' },
+            { label: 'Z8-14', account: '4300197', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Z8-15', account: '4300198', type: 'Residential (Villa)', 'Apr-25': 125, 'Mar-25': 70, 'Feb-25': 61, 'Jan-25': 99, status: 'active' },
+            { label: 'Z8-16', account: '4300199', type: 'Residential (Villa)', 'Apr-25': 98, 'Mar-25': 54, 'Feb-25': 72, 'Jan-25': 67, status: 'active' },
+            { label: 'Z8-17', account: '4300200', type: 'Residential (Villa)', 'Apr-25': 207, 'Mar-25': 171, 'Feb-25': 162, 'Jan-25': 164, status: 'active' },
+            { label: 'Z8-5', account: '4300287', type: 'Residential (Villa)', 'Apr-25': 336, 'Mar-25': 313, 'Feb-25': 341, 'Jan-25': 208, status: 'active' },
+            { label: 'Z8-9', account: '4300288', type: 'Residential (Villa)', 'Apr-25': 4, 'Mar-25': 5, 'Feb-25': 12, 'Jan-25': 5, status: 'active' },
+            { label: 'Z8-18', account: '4300289', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 336, 'Feb-25': 111, 'Jan-25': 122, status: 'active' },
+            { label: 'Z8-19', account: '4300290', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 231, 'Feb-25': 87, 'Jan-25': 104, status: 'active' },
+            { label: 'Z8-20', account: '4300291', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 312, 'Feb-25': 110, 'Jan-25': 146, status: 'active' },
+            { label: 'Z8-21', account: '4300292', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 276, 'Feb-25': 72, 'Jan-25': 99, status: 'active' },
+            { label: 'Z8-22', account: '4300293', type: 'Residential (Villa)', 'Apr-25': 0, 'Mar-25': 336, 'Feb-25': 156, 'Jan-25': 225, status: 'active' }
         ]
     },
     'Zone_VS': {
         name: 'Village Square',
+        'Jan-24': { bulk: 26, individual: 0, loss: 26 },
+        'Feb-24': { bulk: 19, individual: 1, loss: 18 },
+        'Mar-24': { bulk: 72, individual: 16, loss: 56 },
+        'Apr-24': { bulk: 60, individual: 49, loss: 11 },
+        'May-24': { bulk: 125, individual: 33, loss: 92 },
+        'Jun-24': { bulk: 277, individual: 191, loss: 86 },
+        'Jul-24': { bulk: 143, individual: 148, loss: -5 },
+        'Aug-24': { bulk: 137, individual: 125, loss: 12 },
+        'Sep-24': { bulk: 145, individual: 34, loss: 111 },
+        'Oct-24': { bulk: 63, individual: 49, loss: 14 },
+        'Nov-24': { bulk: 34, individual: 53, loss: -19 },
+        'Dec-24': { bulk: 17, individual: 31, loss: -14 },
+        'Jan-25': { bulk: 14, individual: 33, loss: -19 },
+        'Feb-25': { bulk: 12, individual: 25, loss: -13 },
+        'Mar-25': { bulk: 21, individual: 54, loss: -33 },
         'Apr-25': { bulk: 13, individual: 15, loss: -2 },
         meters: [
-            { label: 'Hotel Main Building', account: '4300334', type: 'Retail', 'Apr-25': 13, status: 'active' },
-            { label: 'Coffee 2 (GF Shop No.594 A)', account: '4300329', type: 'Retail', 'Apr-25': 5, status: 'active' }
+            { label: 'Irrigation Tank - VS', account: '4300326', type: 'IRR_Services', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Coffee 1 (GF Shop No.591)', account: '4300327', type: 'Retail', 'Apr-25': -3, 'Mar-25': 3, 'Feb-25': 0, 'Jan-25': 0, status: 'active' },
+            { label: 'Coffee 2 (GF Shop No.594 A)', account: '4300329', type: 'Retail', 'Apr-25': 5, 'Mar-25': 5, 'Feb-25': 3, 'Jan-25': 2, status: 'active' },
+            { label: 'Supermarket (FF Shop No.591)', account: '4300330', type: 'Retail', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Pharmacy (FF Shop No.591 A)', account: '4300331', type: 'Retail', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Laundry Services (FF Shop No.593)', account: '4300332', type: 'Retail', 'Apr-25': 0, 'Mar-25': 22, 'Feb-25': 25, 'Jan-25': 33, status: 'active' },
+            { label: 'Shop No.593 A', account: '4300333', type: 'Retail', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: 'Hotel Main Building', account: '4300334', type: 'Retail', 'Apr-25': 13, 'Mar-25': 51, 'Feb-25': 15, 'Jan-25': 6, status: 'active' }
         ]
     },
     'Main_Bulk': {
         name: 'Main Bulk (A2)',
+        'Jan-24': { bulk: 32803, A2: 28689, loss: 4114 },
+        'Feb-24': { bulk: 27996, A2: 25073, loss: 2923 },
+        'Mar-24': { bulk: 23860, A2: 24007, loss: -147 },
+        'Apr-24': { bulk: 31869, A2: 28713, loss: 3156 },
+        'May-24': { bulk: 30737, A2: 28089, loss: 2648 },
+        'Jun-24': { bulk: 41953, A2: 34626, loss: 7327 },
+        'Jul-24': { bulk: 35166, A2: 34689, loss: 477 },
+        'Aug-24': { bulk: 35420, A2: 31598, loss: 3822 },
+        'Sep-24': { bulk: 41341, A2: 31813, loss: 9528 },
+        'Oct-24': { bulk: 31519, A2: 34525, loss: -3006 },
+        'Nov-24': { bulk: 35290, A2: 28704, loss: 6586 },
+        'Dec-24': { bulk: 36733, A2: 31109, loss: 5624 },
+        'Jan-25': { bulk: 32580, A2: 35325, loss: -2745 },
+        'Feb-25': { bulk: 44043, A2: 35811, loss: 8232 },
+        'Mar-25': { bulk: 34915, A2: 39565, loss: -4650 },
         'Apr-25': { bulk: 46039, A2: 45863, loss: 176 },
         meters: [
-            { label: 'Hotel Main Building', account: '4300334', type: 'Retail', 'Apr-25': 27676, status: 'active' },
-            { label: 'Irrigation- Controller UP', account: '4300340', type: 'IRR_Services', 'Apr-25': 1000, status: 'active' },
-            { label: 'Al Adrak Camp', account: '4300348', type: 'Retail', 'Apr-25': 1000, status: 'active' },
-            { label: 'Al Adrak Construction', account: '4300347', type: 'Retail', 'Apr-25': 600, status: 'active' },
-            { label: 'Irrigation- Controller DOWN', account: '4300341', type: 'IRR_Services', 'Apr-25': 411, status: 'active' }
+            { label: 'Irrigation Tank 04 - (Z08)', account: '4300294', type: 'IRR_Services', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' },
+            { label: '"Sales Center  Common Building "', account: '4300295', type: 'MB_Common', 'Apr-25': 67, 'Mar-25': 37, 'Feb-25': 68, 'Jan-25': 76, status: 'active' },
+            { label: 'Building (Security)', account: '4300297', type: 'MB_Common', 'Apr-25': 16, 'Mar-25': 13, 'Feb-25': 18, 'Jan-25': 17, status: 'active' },
+            { label: 'Building (ROP)', account: '4300299', type: 'MB_Common', 'Apr-25': 20, 'Mar-25': 19, 'Feb-25': 21, 'Jan-25': 23, status: 'active' },
+            { label: 'Community Mgmt - Technical Zone, STP', account: '4300336', type: 'MB_Common', 'Apr-25': 35, 'Mar-25': 25, 'Feb-25': 37, 'Jan-25': 29, status: 'active' },
+            { label: 'PHASE 02, MAIN ENTRANCE (Infrastructure)', account: '4300338', type: 'MB_Common', 'Apr-25': 7, 'Mar-25': 6, 'Feb-25': 8, 'Jan-25': 11, status: 'active' },
+            { label: 'Irrigation- Controller UP', account: '4300340', type: 'IRR_Services', 'Apr-25': 1000, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'active' },
+            { label: 'Irrigation- Controller DOWN', account: '4300341', type: 'IRR_Services', 'Apr-25': 411, 'Mar-25': 283, 'Feb-25': 239, 'Jan-25': 159, status: 'active' },
+            { label: 'Al Adrak Construction', account: '4300347', type: 'Retail', 'Apr-25': 600, 'Mar-25': 580, 'Feb-25': 520, 'Jan-25': 597, status: 'active' },
+            { label: 'Al Adrak Camp', account: '4300348', type: 'Retail', 'Apr-25': 1000, 'Mar-25': 1161, 'Feb-25': 702, 'Jan-25': 1038, status: 'active' },
+            { label: 'Hotel Main Building', account: '4300334', type: 'Retail', 'Apr-25': 27676, 'Mar-25': 22151, 'Feb-25': 19482, 'Jan-25': 18048, status: 'active' },
+            { label: 'Irrigation Tank 01 (Inlet)', account: '4300323', type: 'IRR_Services', 'Apr-25': 0, 'Mar-25': 0, 'Feb-25': 0, 'Jan-25': 0, status: 'inactive' }
         ]
     }
 };
+
+// Utility functions for data analysis
+function calculateWaterBalance(data) {
+    const balance = {};
+    Object.keys(data).forEach(month => {
+        const monthData = data[month];
+        balance[month] = {
+            totalSupply: monthData.L1,
+            totalDistribution: monthData.L2 + monthData.DC,
+            systemLoss: monthData.L1 - (monthData.L2 + monthData.DC),
+            zoneConsumption: monthData.L3,
+            distributionLoss: (monthData.L2 + monthData.DC) - monthData.L3
+        };
+    });
+    return balance;
+}
+
+function getZoneEfficiency(zoneName, month) {
+    const zone = detailedZoneData[zoneName];
+    if (!zone || !zone[month]) return null;
+    
+    const monthData = zone[month];
+    const { bulk, loss } = monthData;
+    
+    // For Main_Bulk, use A2 instead of individual
+    const distributed = zoneName === 'Main_Bulk' ? monthData.A2 : monthData.individual;
+    
+    return {
+        efficiency: ((distributed / bulk) * 100).toFixed(2) + '%',
+        lossPercentage: ((loss / bulk) * 100).toFixed(2) + '%',
+        distributed: distributed,
+        loss: loss
+    };
+}
+
+function getActiveMeters(zoneName) {
+    const zone = detailedZoneData[zoneName];
+    if (!zone) return { active: 0, inactive: 0, total: 0 };
+    
+    const active = zone.meters.filter(m => m.status === 'active').length;
+    const inactive = zone.meters.filter(m => m.status === 'inactive').length;
+    
+    return { active, inactive, total: zone.meters.length };
+}
+
+console.log('Water Management System Data Loaded Successfully');
+console.log('Available zones:', Object.keys(detailedZoneData));
+console.log('Data period: January 2024 - April 2025');
+console.log('Total meters tracked:', Object.values(detailedZoneData).reduce((sum, zone) => sum + zone.meters.length, 0));
+
+// Key Definitions:
+// L1: Main bulk supply meter
+// L2: Sum of all zone bulk meters  
+// DC: Direct connections from main bulk
+// L3: Sum of all individual meters
+// A2: Total distribution (L2 + DC) - used for Main_Bulk zone
+
+// Example usage:
+// console.log('Water Balance for Apr-25:', calculateWaterBalance(waterData)['Apr-25']);
+// console.log('Zone FM Efficiency for Apr-25:', getZoneEfficiency('Zone_01_(FM)', 'Apr-25'));
+// console.log('Main Bulk A2 Efficiency for Apr-25:', getZoneEfficiency('Main_Bulk', 'Apr-25'));
+// console.log('Zone 03A Meter Status:', getActiveMeters('Zone_03_(A)'));
 
         let selectedPeriod = 'Apr-25';
         let selectedZone = 'Zone_01_(FM)';
@@ -1247,24 +1663,27 @@ const detailedZoneData = {
         // Update zone analysis
         function updateZoneAnalysis() {
             const zone = detailedZoneData[selectedZone];
-            if (!zone || !zone[selectedZoneMonth]) return;
-            
             const monthData = zone[selectedZoneMonth];
             
             // Update KPI cards
             document.getElementById('zoneBulkReading').textContent = monthData.bulk.toLocaleString();
-            
-            // For Main_Bulk, use A2 instead of individual
-            const distributed = selectedZone === 'Main_Bulk' ? monthData.A2 : monthData.individual;
-            document.getElementById('zoneIndividualSum').textContent = distributed.toLocaleString();
+            document.getElementById('zoneIndividualSum').textContent = monthData.individual.toLocaleString();
             document.getElementById('zoneLoss').textContent = monthData.loss.toLocaleString();
             
             // Calculate loss percentage
             const lossPercentage = monthData.bulk > 0 ? (monthData.loss / monthData.bulk * 100).toFixed(1) : 0;
             document.getElementById('zoneLossPercentage').textContent = lossPercentage + '%';
             
-            // Update loss bar
+            // Loss is always shown in red
+            document.getElementById('zoneLoss').style.color = '#cc0000';
+            document.getElementById('zoneLossPercentage').style.color = '#cc0000';
             document.getElementById('zoneLossBar').style.width = Math.abs(lossPercentage) + '%';
+            document.getElementById('zoneLossBar').style.background = '#cc0000';
+            
+            // Update the border color of loss cards
+            const lossCards = document.querySelectorAll('#zones .metric-card');
+            if (lossCards[2]) lossCards[2].style.borderTopColor = '#cc0000';
+            if (lossCards[3]) lossCards[3].style.borderTopColor = '#cc0000';
             
             // Update performance chart
             updateZonePerformanceChart(monthData);
@@ -1278,18 +1697,24 @@ const detailedZoneData = {
 
         // Update zone performance chart
         function updateZonePerformanceChart(monthData) {
-            const distributed = selectedZone === 'Main_Bulk' ? monthData.A2 : monthData.individual;
-            const maxValue = Math.max(monthData.bulk, distributed, Math.abs(monthData.loss));
+            const maxValue = Math.max(monthData.bulk, monthData.individual, Math.abs(monthData.loss));
             
             document.getElementById('bulkBar').style.height = (monthData.bulk / maxValue * 250) + 'px';
             document.getElementById('bulkBar').querySelector('.bar-value').textContent = monthData.bulk.toLocaleString();
             
-            document.getElementById('individualBar').style.height = (distributed / maxValue * 250) + 'px';
-            document.getElementById('individualBar').querySelector('.bar-value').textContent = distributed.toLocaleString();
+            document.getElementById('individualBar').style.height = (monthData.individual / maxValue * 250) + 'px';
+            document.getElementById('individualBar').querySelector('.bar-value').textContent = monthData.individual.toLocaleString();
             
             const lossHeight = Math.abs(monthData.loss) / maxValue * 250;
             document.getElementById('lossBar').style.height = lossHeight + 'px';
             document.getElementById('lossBar').querySelector('.bar-value').textContent = monthData.loss.toLocaleString();
+            document.getElementById('lossBar').querySelector('.bar-value').style.color = '#cc0000';
+            document.getElementById('lossBar').style.background = '#cc0000'; // Loss is always red
+            
+            // Add rounded corners to all bars
+            document.getElementById('bulkBar').style.borderRadius = '4px 4px 0 0';
+            document.getElementById('individualBar').style.borderRadius = '4px 4px 0 0';
+            document.getElementById('lossBar').style.borderRadius = '4px 4px 0 0';
         }
 
         // Update meters table
@@ -1320,8 +1745,7 @@ const detailedZoneData = {
             
             currentPageMeters.forEach(meter => {
                 const consumption = meter[selectedZoneMonth] || 0;
-                const distributed = selectedZone === 'Main_Bulk' ? monthData.A2 : monthData.individual;
-                const percentage = distributed > 0 ? (consumption / distributed * 100) : 0;
+                const percentage = monthData.individual > 0 ? (consumption / monthData.individual * 100) : 0;
                 const isActive = consumption > 0;
                 
                 if (isActive) totalActive++; else totalInactive++;
